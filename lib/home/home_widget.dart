@@ -1,7 +1,9 @@
 import '../auth/auth_util.dart';
+import '../backend/firebase_storage/storage.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../flutter_flow/upload_media.dart';
 import '../login/login_widget.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +17,7 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
+  String uploadedFileUrl = '';
   TextEditingController textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -64,6 +67,51 @@ class _HomeWidgetState extends State<HomeWidget> {
                 );
               },
             ),
+          ),
+          FlutterFlowIconButton(
+            borderColor: Colors.transparent,
+            borderRadius: 3,
+            borderWidth: 1,
+            buttonSize: 60,
+            icon: Icon(
+              Icons.cloud_upload,
+              color: Colors.white,
+              size: 30,
+            ),
+            onPressed: () async {
+              final selectedMedia = await selectMedia(
+                imageQuality: 100,
+                multiImage: false,
+              );
+              if (selectedMedia != null &&
+                  selectedMedia.every(
+                      (m) => validateFileFormat(m.storagePath, context))) {
+                showUploadMessage(
+                  context,
+                  'Uploading file...',
+                  showLoading: true,
+                );
+                final downloadUrls = (await Future.wait(selectedMedia.map(
+                        (m) async => await uploadData(m.storagePath, m.bytes))))
+                    .where((u) => u != null)
+                    .toList();
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                if (downloadUrls != null &&
+                    downloadUrls.length == selectedMedia.length) {
+                  setState(() => uploadedFileUrl = downloadUrls.first);
+                  showUploadMessage(
+                    context,
+                    'Success!',
+                  );
+                } else {
+                  showUploadMessage(
+                    context,
+                    'Failed to upload media',
+                  );
+                  return;
+                }
+              }
+            },
           ),
         ],
         centerTitle: false,

@@ -28,9 +28,12 @@ dependencies:
   auto_size_text: 3.0.0
   cached_network_image: 3.1.0+1
   easy_debounce: 2.0.1
+  file_picker: 4.5.1
   firebase_auth: 3.2.0
   firebase_core: 1.12.0
   firebase_core_web: 1.5.4
+  firebase_storage: 10.1.0
+  firebase_storage_web: 3.2.8
   flutter_facebook_auth:
     git:
       url: https://github.com/asmengistu/flutter-facebook-auth
@@ -39,8 +42,10 @@ dependencies:
   font_awesome_flutter: 10.1.0
   google_fonts: 2.2.0
   google_sign_in: 5.2.1
+  image_picker: 0.8.4+4
   intl: 0.17.0
   json_path: 0.3.1
+  mime_type: 1.0.0
   page_transition: 2.0.4
   rxdart: 0.26.0
   shared_preferences: 2.0.11
