@@ -80,7 +80,7 @@ class _HomeWidgetState extends State<HomeWidget> {
             ),
             onPressed: () async {
               final selectedMedia = await selectMedia(
-                imageQuality: 100,
+                isVideo: true,
                 multiImage: false,
               );
               if (selectedMedia != null &&
