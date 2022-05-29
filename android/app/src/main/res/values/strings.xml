@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+    <string name="app_name">Project Draft2</string>
+    <string name="facebook_app_id">330859689038530</string>
+               <string name="fb_login_protocol_scheme">fb330859689038530</string>
+</resources>
