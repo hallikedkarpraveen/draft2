@@ -6,3 +6,4 @@ export 's_m_s_auth/s_m_s_auth_widget.dart' show SMSAuthWidget;
 export 'home/home_widget.dart' show HomeWidget;
 export 'forgotpassword/forgotpassword_widget.dart' show ForgotpasswordWidget;
 export 'registeruser/registeruser_widget.dart' show RegisteruserWidget;
+export 'uploadvideo/uploadvideo_widget.dart' show UploadvideoWidget;

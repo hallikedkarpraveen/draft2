@@ -105,25 +105,15 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                 child: Text(
-                  'Welcome to Flutterflow',
-                  style: FlutterFlowTheme.of(context).title1.override(
-                        fontFamily: 'Lexend Deca',
-                        color: Colors.white,
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  'Welcome to Wiziton Media',
+                  style: FlutterFlowTheme.of(context).title3,
                 ).animated([animationsMap['textOnPageLoadAnimation1']]),
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 120),
                 child: Text(
-                  'Build Apps Effortlessly',
-                  style: FlutterFlowTheme.of(context).title3.override(
-                        fontFamily: 'Lexend Deca',
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.normal,
-                      ),
+                  ' Effortlessly Report',
+                  style: FlutterFlowTheme.of(context).subtitle2,
                 ).animated([animationsMap['textOnPageLoadAnimation2']]),
               ),
             ],
