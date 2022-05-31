@@ -391,13 +391,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.network(
-                                'https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Zm9vZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
-                                width: double.infinity,
-                                height: 115,
-                                fit: BoxFit.cover,
+                            AuthUserStreamWidget(
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.network(
+                                  currentUserPhoto,
+                                  width: double.infinity,
+                                  height: 115,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                             Padding(

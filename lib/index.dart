@@ -7,3 +7,4 @@ export 'home/home_widget.dart' show HomeWidget;
 export 'forgotpassword/forgotpassword_widget.dart' show ForgotpasswordWidget;
 export 'registeruser/registeruser_widget.dart' show RegisteruserWidget;
 export 'uploadvideo/uploadvideo_widget.dart' show UploadvideoWidget;
+export 'video_preview/video_preview_widget.dart' show VideoPreviewWidget;
