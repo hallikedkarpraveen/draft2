@@ -259,14 +259,35 @@ class _HomeWidgetState extends State<HomeWidget> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                FlutterFlowVideoPlayer(
-                                  path: columnUsersRecord.videoUrl,
-                                  videoType: VideoType.network,
-                                  autoPlay: false,
-                                  looping: true,
-                                  showControls: true,
-                                  allowFullScreen: true,
-                                  allowPlaybackSpeedMenu: false,
+                                StreamBuilder<List<VideosRecord>>(
+                                  stream: queryVideosRecord(),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 50,
+                                          height: 50,
+                                          child: CircularProgressIndicator(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryColor,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    List<VideosRecord>
+                                        videoPlayerVideosRecordList =
+                                        snapshot.data;
+                                    return FlutterFlowVideoPlayer(
+                                      path: columnUsersRecord.videoUrl,
+                                      videoType: VideoType.network,
+                                      autoPlay: false,
+                                      looping: true,
+                                      showControls: true,
+                                      allowFullScreen: true,
+                                      allowPlaybackSpeedMenu: false,
+                                    );
+                                  },
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(

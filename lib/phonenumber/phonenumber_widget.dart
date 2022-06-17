@@ -151,7 +151,7 @@ class _PhonenumberWidgetState extends State<PhonenumberWidget> {
                                 controller: phoneNumberController,
                                 obscureText: false,
                                 decoration: InputDecoration(
-                                  labelText: 'Phone Number',
+                                  labelText: 'Your Phone Number...',
                                   labelStyle: FlutterFlowTheme.of(context)
                                       .bodyText2
                                       .override(
@@ -160,6 +160,7 @@ class _PhonenumberWidgetState extends State<PhonenumberWidget> {
                                         fontSize: 14,
                                         fontWeight: FontWeight.normal,
                                       ),
+                                  hintText: '+1 (204) 204-2056',
                                   hintStyle: FlutterFlowTheme.of(context)
                                       .bodyText1
                                       .override(

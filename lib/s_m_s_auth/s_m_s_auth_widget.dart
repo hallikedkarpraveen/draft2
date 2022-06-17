@@ -151,7 +151,7 @@ class _SMSAuthWidgetState extends State<SMSAuthWidget> {
                                 controller: smsotpController,
                                 obscureText: false,
                                 decoration: InputDecoration(
-                                  labelText: '- - - - - - -',
+                                  labelText: 'Your Phone Number...',
                                   labelStyle: FlutterFlowTheme.of(context)
                                       .bodyText2
                                       .override(
@@ -160,6 +160,7 @@ class _SMSAuthWidgetState extends State<SMSAuthWidget> {
                                         fontSize: 14,
                                         fontWeight: FontWeight.normal,
                                       ),
+                                  hintText: '+1 (204) 204-2056',
                                   hintStyle: FlutterFlowTheme.of(context)
                                       .bodyText1
                                       .override(

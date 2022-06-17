@@ -51,7 +51,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Padding(
@@ -98,7 +98,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 },
                                 obscureText: false,
                                 decoration: InputDecoration(
-                                  labelText: 'Email addres',
+                                  labelText: 'Email Address',
                                   labelStyle: FlutterFlowTheme.of(context)
                                       .bodyText1
                                       .override(
@@ -107,6 +107,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         fontSize: 14,
                                         fontWeight: FontWeight.normal,
                                       ),
+                                  hintText: 'Enter your email here...',
                                   hintStyle: FlutterFlowTheme.of(context)
                                       .bodyText1
                                       .override(
@@ -168,6 +169,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         fontSize: 14,
                                         fontWeight: FontWeight.normal,
                                       ),
+                                  hintText: 'Enter your email here...',
                                   hintStyle: FlutterFlowTheme.of(context)
                                       .bodyText1
                                       .override(
