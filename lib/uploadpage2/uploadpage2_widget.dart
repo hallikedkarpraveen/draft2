@@ -9,7 +9,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Uploadpage2Widget extends StatefulWidget {
@@ -20,53 +19,14 @@ class Uploadpage2Widget extends StatefulWidget {
 }
 
 class _Uploadpage2WidgetState extends State<Uploadpage2Widget> {
-  String uploadedFileUrl1 = '';
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-  String uploadedFileUrl2 = '';
+  String uploadedFileUrl = '';
   TextEditingController textController1;
   TextEditingController textController2;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    // On page load action.
-    SchedulerBinding.instance?.addPostFrameCallback((_) async {
-      final selectedMedia = await selectMedia(
-        isVideo: true,
-        multiImage: false,
-      );
-      if (selectedMedia != null &&
-          selectedMedia
-              .every((m) => validateFileFormat(m.storagePath, context))) {
-        showUploadMessage(
-          context,
-          'Uploading file...',
-          showLoading: true,
-        );
-        final downloadUrls = (await Future.wait(selectedMedia
-                .map((m) async => await uploadData(m.storagePath, m.bytes))))
-            .where((u) => u != null)
-            .toList();
-        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        if (downloadUrls != null &&
-            downloadUrls.length == selectedMedia.length) {
-          setState(() => uploadedFileUrl1 = downloadUrls.first);
-          showUploadMessage(
-            context,
-            'Success!',
-          );
-        } else {
-          showUploadMessage(
-            context,
-            'Failed to upload media',
-          );
-          return;
-        }
-      }
-
-      Navigator.pop(context);
-    });
-
     textController1 = TextEditingController();
     textController2 = TextEditingController();
   }
@@ -124,7 +84,7 @@ class _Uploadpage2WidgetState extends State<Uploadpage2Widget> {
                         ScaffoldMessenger.of(context).hideCurrentSnackBar();
                         if (downloadUrls != null &&
                             downloadUrls.length == selectedMedia.length) {
-                          setState(() => uploadedFileUrl2 = downloadUrls.first);
+                          setState(() => uploadedFileUrl = downloadUrls.first);
                           showUploadMessage(
                             context,
                             'Success!',
@@ -140,7 +100,7 @@ class _Uploadpage2WidgetState extends State<Uploadpage2Widget> {
                     },
                     child: Image.network(
                       valueOrDefault<String>(
-                        uploadedFileUrl1,
+                        uploadedFileUrl,
                         'https://picsum.photos/seed/552/600',
                       ),
                       width: 350,
@@ -297,16 +257,11 @@ class _Uploadpage2WidgetState extends State<Uploadpage2Widget> {
                                         uid: currentUserReference,
                                         title: textController1.text,
                                         summary: textController2.text,
-                                        videoUrl: uploadedFileUrl1,
+                                        videoUrl: uploadedFileUrl,
                                       );
                                       await VideosRecord.collection
                                           .doc()
                                           .set(videosCreateData);
-                                      setState(() {
-                                        textController2?.clear();
-                                        textController1?.clear();
-                                      });
-                                      Navigator.pop(context);
                                     },
                                     text: 'Button',
                                     options: FFButtonOptions(
