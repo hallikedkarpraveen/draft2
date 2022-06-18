@@ -269,8 +269,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             10, 15, 10, 15),
                                         child: FlutterFlowVideoPlayer(
-                                          path:
-                                              'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4',
+                                          path: listViewVideosRecord.videoUrl,
                                           videoType: VideoType.network,
                                           autoPlay: false,
                                           looping: true,

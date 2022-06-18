@@ -5,6 +5,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/upload_media.dart';
+import '../home/home_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -22,6 +23,7 @@ class _Uploadpage2WidgetState extends State<Uploadpage2Widget> {
   String uploadedFileUrl = '';
   TextEditingController textController1;
   TextEditingController textController2;
+  TextEditingController textController3;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -29,6 +31,7 @@ class _Uploadpage2WidgetState extends State<Uploadpage2Widget> {
     super.initState();
     textController1 = TextEditingController();
     textController2 = TextEditingController();
+    textController3 = TextEditingController();
   }
 
   @override
@@ -103,8 +106,8 @@ class _Uploadpage2WidgetState extends State<Uploadpage2Widget> {
                         uploadedFileUrl,
                         'https://picsum.photos/seed/552/600',
                       ),
-                      width: 350,
-                      height: 350,
+                      width: 300,
+                      height: 300,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -194,7 +197,7 @@ class _Uploadpage2WidgetState extends State<Uploadpage2Widget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 20, 0, 0),
                                     child: Text(
-                                      'Description',
+                                      'Tags',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyText1
                                           .override(
@@ -216,7 +219,7 @@ class _Uploadpage2WidgetState extends State<Uploadpage2Widget> {
                                     autofocus: true,
                                     obscureText: false,
                                     decoration: InputDecoration(
-                                      hintText: 'Summary of the video',
+                                      hintText: '#wiziton ....',
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color: FlutterFlowTheme.of(context)
@@ -247,6 +250,69 @@ class _Uploadpage2WidgetState extends State<Uploadpage2Widget> {
                                         ),
                                   ),
                                 ),
+                                Align(
+                                  alignment: AlignmentDirectional(-0.95, 0),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        5, 20, 0, 0),
+                                    child: AutoSizeText(
+                                      'Description',
+                                      textAlign: TextAlign.start,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Roboto',
+                                          ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      10, 12, 10, 0),
+                                  child: TextFormField(
+                                    controller: textController3,
+                                    onChanged: (_) => EasyDebounce.debounce(
+                                      'textController3',
+                                      Duration(milliseconds: 2000),
+                                      () => setState(() {}),
+                                    ),
+                                    autofocus: true,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      hintText: 'Summary of the video',
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .black600,
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .black600,
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                      filled: true,
+                                      fillColor:
+                                          FlutterFlowTheme.of(context).gray200,
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Open Sans',
+                                        ),
+                                  ),
+                                ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 30, 0, 0),
@@ -258,10 +324,29 @@ class _Uploadpage2WidgetState extends State<Uploadpage2Widget> {
                                         title: textController1.text,
                                         summary: textController2.text,
                                         videoUrl: uploadedFileUrl,
+                                        tags: textController2.text,
                                       );
                                       await VideosRecord.collection
                                           .doc()
                                           .set(videosCreateData);
+                                      await Future.delayed(
+                                          const Duration(milliseconds: 2000));
+                                      setState(() {
+                                        textController1?.clear();
+                                        textController2?.clear();
+                                        textController3?.clear();
+                                      });
+                                      await Navigator.push(
+                                        context,
+                                        PageTransition(
+                                          type: PageTransitionType.fade,
+                                          duration:
+                                              Duration(milliseconds: 1000),
+                                          reverseDuration:
+                                              Duration(milliseconds: 1000),
+                                          child: HomeWidget(),
+                                        ),
+                                      );
                                     },
                                     text: 'Button',
                                     options: FFButtonOptions(
