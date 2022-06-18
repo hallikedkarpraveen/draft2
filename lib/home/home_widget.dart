@@ -264,11 +264,17 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       child: FlutterFlowVideoPlayer(
                                         path: listViewVideosRecord.videoUrl,
                                         videoType: VideoType.network,
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.3,
                                         autoPlay: false,
-                                        looping: true,
+                                        looping: false,
                                         showControls: true,
                                         allowFullScreen: true,
                                         allowPlaybackSpeedMenu: false,
+                                        lazyLoad: true,
                                       ),
                                     ),
                                     Padding(
