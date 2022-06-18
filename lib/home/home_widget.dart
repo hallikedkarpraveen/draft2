@@ -220,73 +220,147 @@ class _HomeWidgetState extends State<HomeWidget> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 44),
-                    child: Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      alignment: WrapAlignment.start,
-                      crossAxisAlignment: WrapCrossAlignment.start,
-                      direction: Axis.horizontal,
-                      runAlignment: WrapAlignment.start,
-                      verticalDirection: VerticalDirection.down,
-                      clipBehavior: Clip.none,
-                      children: [
-                        StreamBuilder<List<VideosRecord>>(
-                          stream: queryVideosRecord(
-                            queryBuilder: (videosRecord) => videosRecord
-                                .where('uid', isEqualTo: currentUserReference),
+                  StreamBuilder<List<VideosRecord>>(
+                    stream: queryVideosRecord(
+                      queryBuilder: (videosRecord) => videosRecord.where('uid',
+                          isEqualTo: currentUserReference),
+                    ),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 50,
+                            height: 50,
+                            child: CircularProgressIndicator(
+                              color: FlutterFlowTheme.of(context).primaryColor,
+                            ),
                           ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 50,
-                                  height: 50,
-                                  child: CircularProgressIndicator(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryColor,
-                                  ),
-                                ),
-                              );
-                            }
-                            List<VideosRecord> listViewVideosRecordList =
-                                snapshot.data;
-                            return ListView.builder(
-                              padding: EdgeInsets.zero,
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              itemCount: listViewVideosRecordList.length,
-                              itemBuilder: (context, listViewIndex) {
-                                final listViewVideosRecord =
-                                    listViewVideosRecordList[listViewIndex];
-                                return Row(
+                        );
+                      }
+                      List<VideosRecord> listViewVideosRecordList =
+                          snapshot.data;
+                      return ListView.builder(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: listViewVideosRecordList.length,
+                        itemBuilder: (context, listViewIndex) {
+                          final listViewVideosRecord =
+                              listViewVideosRecordList[listViewIndex];
+                          return Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(5, 10, 5, 10),
+                            child: Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              color: Color(0xFFF5F5F5),
+                              child: SingleChildScrollView(
+                                child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    Expanded(
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            10, 15, 10, 15),
-                                        child: FlutterFlowVideoPlayer(
-                                          path: listViewVideosRecord.videoUrl,
-                                          videoType: VideoType.network,
-                                          autoPlay: false,
-                                          looping: true,
-                                          showControls: true,
-                                          allowFullScreen: true,
-                                          allowPlaybackSpeedMenu: false,
-                                        ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          5, 5, 5, 5),
+                                      child: FlutterFlowVideoPlayer(
+                                        path: listViewVideosRecord.videoUrl,
+                                        videoType: VideoType.network,
+                                        autoPlay: false,
+                                        looping: true,
+                                        showControls: true,
+                                        allowFullScreen: true,
+                                        allowPlaybackSpeedMenu: false,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          5, 5, 5, 5),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Align(
+                                            alignment:
+                                                AlignmentDirectional(-1, 0),
+                                            child: StreamBuilder<
+                                                List<VideosRecord>>(
+                                              stream: queryVideosRecord(
+                                                queryBuilder: (videosRecord) =>
+                                                    videosRecord.where('uid',
+                                                        isEqualTo:
+                                                            currentUserReference),
+                                              ),
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return Center(
+                                                    child: SizedBox(
+                                                      width: 50,
+                                                      height: 50,
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryColor,
+                                                      ),
+                                                    ),
+                                                  );
+                                                }
+                                                List<VideosRecord>
+                                                    textVideosRecordList =
+                                                    snapshot.data;
+                                                return Text(
+                                                  valueOrDefault<String>(
+                                                    listViewVideosRecord.tags,
+                                                    '#wiziton',
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1,
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          5, 5, 5, 5),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
+                                            listViewVideosRecord.title,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          5, 5, 5, 5),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
+                                            listViewVideosRecord.summary,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1,
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ],
-                                );
-                              },
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
                   ),
                 ],
               ),

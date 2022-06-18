@@ -322,7 +322,7 @@ class _Uploadpage2WidgetState extends State<Uploadpage2Widget> {
                                           createVideosRecordData(
                                         uid: currentUserReference,
                                         title: textController1.text,
-                                        summary: textController2.text,
+                                        summary: textController3.text,
                                         videoUrl: uploadedFileUrl,
                                         tags: textController2.text,
                                       );
