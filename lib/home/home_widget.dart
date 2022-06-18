@@ -101,8 +101,11 @@ class _HomeWidgetState extends State<HomeWidget> {
             onPressed: () async {
               await Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => Uploadpage2Widget(),
+                PageTransition(
+                  type: PageTransitionType.fade,
+                  duration: Duration(milliseconds: 100),
+                  reverseDuration: Duration(milliseconds: 100),
+                  child: Uploadpage2Widget(),
                 ),
               );
             },
