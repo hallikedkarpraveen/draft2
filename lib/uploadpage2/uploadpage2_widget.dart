@@ -5,7 +5,6 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/upload_media.dart';
-import '../video_preview/video_preview_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -65,14 +64,7 @@ class _Uploadpage2WidgetState extends State<Uploadpage2Widget> {
         }
       }
 
-      await Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => VideoPreviewWidget(
-            videoUrl: uploadedFileUrl1,
-          ),
-        ),
-      );
+      Navigator.pop(context);
     });
 
     textController1 = TextEditingController();
@@ -305,20 +297,16 @@ class _Uploadpage2WidgetState extends State<Uploadpage2Widget> {
                                         uid: currentUserReference,
                                         title: textController1.text,
                                         summary: textController2.text,
-                                        videoUrl: uploadedFileUrl2,
+                                        videoUrl: uploadedFileUrl1,
                                       );
                                       await VideosRecord.collection
                                           .doc()
                                           .set(videosCreateData);
-                                      await Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              VideoPreviewWidget(
-                                            videoUrl: uploadedFileUrl1,
-                                          ),
-                                        ),
-                                      );
+                                      setState(() {
+                                        textController2?.clear();
+                                        textController1?.clear();
+                                      });
+                                      Navigator.pop(context);
                                     },
                                     text: 'Button',
                                     options: FFButtonOptions(
