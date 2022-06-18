@@ -34,32 +34,34 @@ class _HomeWidgetState extends State<HomeWidget> {
       appBar: AppBar(
         backgroundColor: Color(0xFF4B39EF),
         automaticallyImplyLeading: false,
-        title: StreamBuilder<UsersRecord>(
-          stream: UsersRecord.getDocument(currentUserReference),
-          builder: (context, snapshot) {
-            // Customize what your widget looks like when it's loading.
-            if (!snapshot.hasData) {
-              return Center(
-                child: SizedBox(
-                  width: 50,
-                  height: 50,
-                  child: CircularProgressIndicator(
-                    color: FlutterFlowTheme.of(context).primaryColor,
+        title: AuthUserStreamWidget(
+          child: StreamBuilder<UsersRecord>(
+            stream: UsersRecord.getDocument(currentUserReference),
+            builder: (context, snapshot) {
+              // Customize what your widget looks like when it's loading.
+              if (!snapshot.hasData) {
+                return Center(
+                  child: SizedBox(
+                    width: 50,
+                    height: 50,
+                    child: CircularProgressIndicator(
+                      color: FlutterFlowTheme.of(context).primaryColor,
+                    ),
                   ),
-                ),
+                );
+              }
+              final textUsersRecord = snapshot.data;
+              return Text(
+                currentUserDisplayName,
+                style: FlutterFlowTheme.of(context).title2.override(
+                      fontFamily: 'Outfit',
+                      color: Colors.white,
+                      fontSize: 28,
+                      fontWeight: FontWeight.normal,
+                    ),
               );
-            }
-            final textUsersRecord = snapshot.data;
-            return Text(
-              textUsersRecord.displayName,
-              style: FlutterFlowTheme.of(context).title2.override(
-                    fontFamily: 'Outfit',
-                    color: Colors.white,
-                    fontSize: 28,
-                    fontWeight: FontWeight.normal,
-                  ),
-            );
-          },
+            },
+          ),
         ),
         actions: [
           Padding(
@@ -135,7 +137,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                       ],
                     ),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(16, 12, 16, 12),
                       child: TextFormField(
                         controller: textController,
                         onChanged: (_) => EasyDebounce.debounce(
@@ -228,7 +230,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                       clipBehavior: Clip.none,
                       children: [
                         StreamBuilder<List<VideosRecord>>(
-                          stream: queryVideosRecord(),
+                          stream: queryVideosRecord(
+                            queryBuilder: (videosRecord) => videosRecord
+                                .where('uid', isEqualTo: currentUserReference),
+                          ),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
                             if (!snapshot.hasData) {

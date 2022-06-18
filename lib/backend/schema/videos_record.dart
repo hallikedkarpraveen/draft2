@@ -15,11 +15,18 @@ abstract class VideosRecord
   String get videoUrl;
 
   @nullable
+  String get tags;
+
+  @nullable
+  DocumentReference get uid;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
-  static void _initializeBuilder(VideosRecordBuilder builder) =>
-      builder..videoUrl = '';
+  static void _initializeBuilder(VideosRecordBuilder builder) => builder
+    ..videoUrl = ''
+    ..tags = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('videos');
@@ -44,6 +51,12 @@ abstract class VideosRecord
 
 Map<String, dynamic> createVideosRecordData({
   String videoUrl,
+  String tags,
+  DocumentReference uid,
 }) =>
     serializers.toFirestore(
-        VideosRecord.serializer, VideosRecord((v) => v..videoUrl = videoUrl));
+        VideosRecord.serializer,
+        VideosRecord((v) => v
+          ..videoUrl = videoUrl
+          ..tags = tags
+          ..uid = uid));
