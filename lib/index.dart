@@ -10,3 +10,4 @@ export 'uploadvideo/uploadvideo_widget.dart' show UploadvideoWidget;
 export 'video_preview/video_preview_widget.dart' show VideoPreviewWidget;
 export 'list_viewpageofvideos/list_viewpageofvideos_widget.dart'
     show ListViewpageofvideosWidget;
+export 'uploadpage2/uploadpage2_widget.dart' show Uploadpage2Widget;

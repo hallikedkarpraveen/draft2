@@ -4,7 +4,7 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_video_player.dart';
-import '../uploadvideo/uploadvideo_widget.dart';
+import '../uploadpage2/uploadpage2_widget.dart';
 import '../welcome/welcome_widget.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -102,7 +102,7 @@ class _HomeWidgetState extends State<HomeWidget> {
               await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => UploadvideoWidget(),
+                  builder: (context) => Uploadpage2Widget(),
                 ),
               );
             },
