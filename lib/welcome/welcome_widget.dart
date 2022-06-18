@@ -28,13 +28,29 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
       ),
     ),
     'columnOnPageLoadAnimation': AnimationInfo(
+      curve: Curves.easeIn,
       trigger: AnimationTrigger.onPageLoad,
-      duration: 100,
+      duration: 200,
+      delay: 660,
       fadeIn: true,
       initialState: AnimationState(
+        opacity: 0.355,
+      ),
+      finalState: AnimationState(
+        opacity: 1,
+      ),
+    ),
+    'columnOnActionTriggerAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      duration: 600,
+      initialState: AnimationState(
+        offset: Offset(0, 0),
+        scale: 1,
         opacity: 0,
       ),
       finalState: AnimationState(
+        offset: Offset(0, 0),
+        scale: 1,
         opacity: 1,
       ),
     ),
@@ -91,6 +107,11 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
           .where((anim) => anim.trigger == AnimationTrigger.onPageLoad),
       this,
     );
+    setupTriggerAnimations(
+      animationsMap.values
+          .where((anim) => anim.trigger == AnimationTrigger.onActionTrigger),
+      this,
+    );
   }
 
   @override
@@ -113,8 +134,11 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
           onTap: () async {
             await Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => LoginWidget(),
+              PageTransition(
+                type: PageTransitionType.fade,
+                duration: Duration(milliseconds: 10),
+                reverseDuration: Duration(milliseconds: 10),
+                child: LoginWidget(),
               ),
             );
           },
@@ -144,7 +168,10 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
               ),
             ],
           ),
-        ).animated([animationsMap['columnOnPageLoadAnimation']]),
+        ).animated([
+          animationsMap['columnOnPageLoadAnimation'],
+          animationsMap['columnOnActionTriggerAnimation']
+        ]),
       ).animated([animationsMap['containerOnPageLoadAnimation']]),
     );
   }

@@ -1,3 +1,4 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -49,17 +50,21 @@ class _ListViewpageofvideosWidgetState
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Align(
-                        alignment: AlignmentDirectional(0, 0),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                          child: Text(
-                            'Wiziton',
-                            textAlign: TextAlign.start,
-                            style: FlutterFlowTheme.of(context).subtitle1,
+                      if (currentUserEmailVerified ?? true)
+                        Align(
+                          alignment: AlignmentDirectional(0, 0),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                            child: AuthUserStreamWidget(
+                              child: Text(
+                                currentUserDisplayName,
+                                textAlign: TextAlign.start,
+                                style: FlutterFlowTheme.of(context).subtitle1,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
                       Icon(
                         Icons.notifications,
                         color: FlutterFlowTheme.of(context).gray600,
@@ -96,6 +101,10 @@ class _ListViewpageofvideosWidgetState
                     height: 100,
                     decoration: BoxDecoration(
                       color: Color(0xFFEEEEEE),
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [],
                     ),
                   ),
                 ),
