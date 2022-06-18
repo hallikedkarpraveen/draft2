@@ -310,7 +310,15 @@ class _Uploadpage2WidgetState extends State<Uploadpage2Widget> {
                                       await VideosRecord.collection
                                           .doc()
                                           .set(videosCreateData);
-                                      Navigator.pop(context);
+                                      await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              VideoPreviewWidget(
+                                            videoUrl: uploadedFileUrl1,
+                                          ),
+                                        ),
+                                      );
                                     },
                                     text: 'Button',
                                     options: FFButtonOptions(
