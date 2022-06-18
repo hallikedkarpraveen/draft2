@@ -34,17 +34,30 @@ class _VideoPreviewWidgetState extends State<VideoPreviewWidget> {
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
-          child: Align(
-            alignment: AlignmentDirectional(0, 0),
-            child: FlutterFlowVideoPlayer(
-              path: widget.videoUrl,
-              videoType: VideoType.network,
-              autoPlay: false,
-              looping: true,
-              showControls: true,
-              allowFullScreen: true,
-              allowPlaybackSpeedMenu: false,
-            ),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Align(
+                alignment: AlignmentDirectional(0, -0.8),
+                child: FlutterFlowVideoPlayer(
+                  path: widget.videoUrl,
+                  videoType: VideoType.network,
+                  autoPlay: false,
+                  looping: true,
+                  showControls: true,
+                  allowFullScreen: true,
+                  allowPlaybackSpeedMenu: false,
+                ),
+              ),
+              Text(
+                'Hello World',
+                style: FlutterFlowTheme.of(context).bodyText1,
+              ),
+              Text(
+                'Hello World',
+                style: FlutterFlowTheme.of(context).bodyText1,
+              ),
+            ],
           ),
         ),
       ),
