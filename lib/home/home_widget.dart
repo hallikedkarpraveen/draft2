@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_video_player.dart';
+import '../list_viewpageofvideos/list_viewpageofvideos_widget.dart';
 import '../uploadpage2/uploadpage2_widget.dart';
 import '../welcome/welcome_widget.dart';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -120,6 +121,7 @@ class _HomeWidgetState extends State<HomeWidget> {
           onTap: () => FocusScope.of(context).unfocus(),
           child: ListView(
             padding: EdgeInsets.zero,
+            shrinkWrap: true,
             scrollDirection: Axis.vertical,
             children: [
               SingleChildScrollView(
@@ -210,15 +212,27 @@ class _HomeWidgetState extends State<HomeWidget> {
                                   ),
                             ),
                           ),
-                          Text(
-                            'See All',
-                            style:
-                                FlutterFlowTheme.of(context).bodyText1.override(
-                                      fontFamily: 'Outfit',
-                                      color: Color(0xFF14181B),
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.normal,
-                                    ),
+                          InkWell(
+                            onTap: () async {
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      ListViewpageofvideosWidget(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'See All',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyText1
+                                  .override(
+                                    fontFamily: 'Outfit',
+                                    color: Color(0xFF14181B),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                            ),
                           ),
                         ],
                       ),

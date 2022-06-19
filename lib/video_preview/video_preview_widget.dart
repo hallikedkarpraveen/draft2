@@ -43,7 +43,7 @@ class _VideoPreviewWidgetState extends State<VideoPreviewWidget> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+        backgroundColor: FlutterFlowTheme.of(context).textColor,
         automaticallyImplyLeading: true,
         actions: [],
         centerTitle: true,
