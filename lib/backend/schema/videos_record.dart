@@ -26,6 +26,9 @@ abstract class VideosRecord
   String get videoUrl;
 
   @nullable
+  LatLng get location;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -62,6 +65,7 @@ Map<String, dynamic> createVideosRecordData({
   String title,
   String summary,
   String videoUrl,
+  LatLng location,
 }) =>
     serializers.toFirestore(
         VideosRecord.serializer,
@@ -70,4 +74,5 @@ Map<String, dynamic> createVideosRecordData({
           ..uid = uid
           ..title = title
           ..summary = summary
-          ..videoUrl = videoUrl));
+          ..videoUrl = videoUrl
+          ..location = location));
