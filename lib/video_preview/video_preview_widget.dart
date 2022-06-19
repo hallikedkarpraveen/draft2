@@ -9,7 +9,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class VideoPreviewWidget extends StatefulWidget {
@@ -33,16 +32,6 @@ class _VideoPreviewWidgetState extends State<VideoPreviewWidget> {
   @override
   void initState() {
     super.initState();
-    // On page load action.
-    SchedulerBinding.instance?.addPostFrameCallback((_) async {
-      await Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => HomeWidget(),
-        ),
-      );
-    });
-
     textController1 = TextEditingController();
     textController2 = TextEditingController();
     textController3 = TextEditingController();
