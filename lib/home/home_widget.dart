@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_video_player.dart';
+import '../uploadpage/uploadpage_widget.dart';
 import '../welcome/welcome_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -88,13 +89,29 @@ class _HomeWidgetState extends State<HomeWidget> {
                           child: Icon(
                             Icons.notifications,
                             color: FlutterFlowTheme.of(context).gray600,
-                            size: 24,
+                            size: 30,
                           ),
                         ),
-                        Icon(
-                          Icons.search_outlined,
-                          color: FlutterFlowTheme.of(context).gray600,
-                          size: 24,
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 7),
+                          child: FlutterFlowIconButton(
+                            borderColor: Colors.transparent,
+                            borderWidth: 1,
+                            buttonSize: 40,
+                            icon: Icon(
+                              Icons.camera_alt,
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              size: 30,
+                            ),
+                            onPressed: () async {
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => UploadpageWidget(),
+                                ),
+                              );
+                            },
+                          ),
                         ),
                         Align(
                           alignment: AlignmentDirectional(0, 0),
@@ -163,11 +180,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                                         height:
                                             MediaQuery.of(context).size.height *
                                                 0.25,
-                                        autoPlay: false,
-                                        looping: true,
+                                        autoPlay: true,
+                                        looping: false,
                                         showControls: true,
-                                        allowFullScreen: true,
-                                        allowPlaybackSpeedMenu: false,
+                                        allowFullScreen: false,
+                                        allowPlaybackSpeedMenu: true,
+                                        lazyLoad: true,
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
