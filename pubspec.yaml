@@ -45,7 +45,6 @@ dependencies:
       ref: b65ffb049c9f1e2704adbeb1aa19c61693c946a5
       path: facebook_auth
   font_awesome_flutter: 10.1.0
-  geolocator: 8.0.1
   google_fonts: 2.2.0
   google_sign_in: 5.2.1
   image_picker: 0.8.4+4

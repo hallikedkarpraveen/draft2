@@ -28,7 +28,6 @@ class _VideoPreviewWidgetState extends State<VideoPreviewWidget> {
   TextEditingController textController2;
   TextEditingController textController3;
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  LatLng currentUserLocationValue;
 
   @override
   void initState() {
@@ -44,6 +43,7 @@ class _VideoPreviewWidgetState extends State<VideoPreviewWidget> {
       key: scaffoldKey,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).textColor,
+        iconTheme: IconThemeData(color: FlutterFlowTheme.of(context).textColor),
         automaticallyImplyLeading: true,
         actions: [],
         centerTitle: true,
@@ -344,10 +344,6 @@ class _VideoPreviewWidgetState extends State<VideoPreviewWidget> {
                                     EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
-                                    currentUserLocationValue =
-                                        await getCurrentUserLocation(
-                                            defaultLocation: LatLng(0.0, 0.0));
-
                                     final videosCreateData =
                                         createVideosRecordData(
                                       tags: textController2.text,
@@ -355,7 +351,6 @@ class _VideoPreviewWidgetState extends State<VideoPreviewWidget> {
                                       title: textController1.text,
                                       summary: textController3.text,
                                       videoUrl: widget.videopreview,
-                                      location: currentUserLocationValue,
                                     );
                                     await VideosRecord.collection
                                         .doc()

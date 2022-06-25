@@ -19,6 +19,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
       trigger: AnimationTrigger.onPageLoad,
       duration: 1000,
       delay: 1000,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         opacity: 0,
@@ -32,6 +33,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
       trigger: AnimationTrigger.onPageLoad,
       duration: 200,
       delay: 660,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         opacity: 0.355,
@@ -43,6 +45,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
     'columnOnActionTriggerAnimation': AnimationInfo(
       trigger: AnimationTrigger.onActionTrigger,
       duration: 600,
+      hideBeforeAnimating: false,
       initialState: AnimationState(
         offset: Offset(0, 0),
         scale: 1,
@@ -58,6 +61,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
       delay: 1100,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         scale: 0.4,
@@ -72,6 +76,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
       delay: 1100,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         offset: Offset(0, 70),
@@ -86,6 +91,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
       delay: 1100,
+      hideBeforeAnimating: false,
       fadeIn: true,
       initialState: AnimationState(
         offset: Offset(0, 100),
