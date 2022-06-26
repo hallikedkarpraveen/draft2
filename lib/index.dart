@@ -9,3 +9,5 @@ export 'home/home_widget.dart' show HomeWidget;
 export 'uploadpage/uploadpage_widget.dart' show UploadpageWidget;
 export 'videopreviewpage/videopreviewpage_widget.dart'
     show VideopreviewpageWidget;
+export 'somethingwentwrong/somethingwentwrong_widget.dart'
+    show SomethingwentwrongWidget;

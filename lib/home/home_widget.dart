@@ -23,7 +23,7 @@ class _HomeWidgetState extends State<HomeWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+      backgroundColor: FlutterFlowTheme.of(context).gray600,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -45,7 +45,13 @@ class _HomeWidgetState extends State<HomeWidget> {
                             child: Text(
                               currentUserDisplayName,
                               textAlign: TextAlign.start,
-                              style: FlutterFlowTheme.of(context).subtitle1,
+                              style: FlutterFlowTheme.of(context)
+                                  .subtitle1
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryBtnText,
+                                  ),
                             ),
                           ),
                         ),
@@ -63,7 +69,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                       },
                       child: Icon(
                         Icons.notifications,
-                        color: FlutterFlowTheme.of(context).primaryText,
+                        color: FlutterFlowTheme.of(context).primaryBtnText,
                         size: 30,
                       ),
                     ),
@@ -75,7 +81,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                         buttonSize: 40,
                         icon: Icon(
                           Icons.camera_alt,
-                          color: FlutterFlowTheme.of(context).primaryText,
+                          color: FlutterFlowTheme.of(context).primaryBtnText,
                           size: 30,
                         ),
                         onPressed: () async {
@@ -97,7 +103,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                         buttonSize: 70,
                         icon: Icon(
                           Icons.location_history,
-                          color: FlutterFlowTheme.of(context).primaryText,
+                          color: FlutterFlowTheme.of(context).primaryBtnText,
                           size: 30,
                         ),
                         onPressed: () {
@@ -140,7 +146,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                               width: double.infinity,
                               height: 350,
                               decoration: BoxDecoration(
-                                color: Color(0xFFEEEEEE),
+                                color: FlutterFlowTheme.of(context).textColor,
                               ),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
@@ -200,7 +206,14 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               listViewVideosRecord.tags,
                                               style:
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyText1,
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryBtnText,
+                                                      ),
                                             );
                                           },
                                         ),
@@ -216,7 +229,13 @@ class _HomeWidgetState extends State<HomeWidget> {
                                         Text(
                                           listViewVideosRecord.title,
                                           style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBtnText,
+                                              ),
                                         ),
                                       ],
                                     ),
@@ -230,7 +249,13 @@ class _HomeWidgetState extends State<HomeWidget> {
                                         Text(
                                           listViewVideosRecord.summary,
                                           style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBtnText,
+                                              ),
                                         ),
                                       ],
                                     ),

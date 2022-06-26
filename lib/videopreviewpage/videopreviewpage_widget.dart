@@ -4,6 +4,8 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_video_player.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../home/home_widget.dart';
+import '../somethingwentwrong/somethingwentwrong_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +42,7 @@ class _VideopreviewpageWidgetState extends State<VideopreviewpageWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+      backgroundColor: FlutterFlowTheme.of(context).gray600,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -54,7 +56,7 @@ class _VideopreviewpageWidgetState extends State<VideopreviewpageWidget> {
                     width: 300,
                     height: 200,
                     decoration: BoxDecoration(
-                      color: Color(0xFFEEEEEE),
+                      color: FlutterFlowTheme.of(context).gray600,
                     ),
                     child: FlutterFlowVideoPlayer(
                       path: widget.videourl,
@@ -103,9 +105,12 @@ class _VideopreviewpageWidgetState extends State<VideopreviewpageWidget> {
                         ),
                       ),
                       filled: true,
-                      fillColor: FlutterFlowTheme.of(context).lineColor,
+                      fillColor: FlutterFlowTheme.of(context).textColor,
                     ),
-                    style: FlutterFlowTheme.of(context).bodyText1,
+                    style: FlutterFlowTheme.of(context).bodyText1.override(
+                          fontFamily: 'Poppins',
+                          color: FlutterFlowTheme.of(context).primaryBtnText,
+                        ),
                   ),
                 ),
                 Padding(
@@ -142,9 +147,12 @@ class _VideopreviewpageWidgetState extends State<VideopreviewpageWidget> {
                         ),
                       ),
                       filled: true,
-                      fillColor: FlutterFlowTheme.of(context).lineColor,
+                      fillColor: FlutterFlowTheme.of(context).textColor,
                     ),
-                    style: FlutterFlowTheme.of(context).bodyText1,
+                    style: FlutterFlowTheme.of(context).bodyText1.override(
+                          fontFamily: 'Poppins',
+                          color: FlutterFlowTheme.of(context).primaryBtnText,
+                        ),
                   ),
                 ),
                 Padding(
@@ -181,9 +189,12 @@ class _VideopreviewpageWidgetState extends State<VideopreviewpageWidget> {
                         ),
                       ),
                       filled: true,
-                      fillColor: FlutterFlowTheme.of(context).lineColor,
+                      fillColor: FlutterFlowTheme.of(context).textColor,
                     ),
-                    style: FlutterFlowTheme.of(context).bodyText1,
+                    style: FlutterFlowTheme.of(context).bodyText1.override(
+                          fontFamily: 'Poppins',
+                          color: FlutterFlowTheme.of(context).primaryBtnText,
+                        ),
                   ),
                 ),
                 Padding(
@@ -202,8 +213,23 @@ class _VideopreviewpageWidgetState extends State<VideopreviewpageWidget> {
                         location: currentUserLocationValue,
                       );
                       await VideosRecord.collection.doc().set(videosCreateData);
+                      if ((widget.videourl) == (widget.videourl)) {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomeWidget(),
+                          ),
+                        );
+                      } else {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SomethingwentwrongWidget(),
+                          ),
+                        );
+                      }
                     },
-                    text: 'Button',
+                    text: 'Submit',
                     options: FFButtonOptions(
                       width: 130,
                       height: 40,
