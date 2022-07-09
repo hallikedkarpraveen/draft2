@@ -244,19 +244,17 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                     tabletLandscape: false,
                                     desktop: false,
                                   ))
-                                    Expanded(
-                                      child: FlutterFlowVideoPlayer(
-                                        path: listViewVideosRecord.videoUrl,
-                                        videoType: VideoType.network,
-                                        width: double.infinity,
-                                        aspectRatio: 1.70,
-                                        autoPlay: true,
-                                        looping: false,
-                                        showControls: true,
-                                        allowFullScreen: true,
-                                        allowPlaybackSpeedMenu: false,
-                                        lazyLoad: true,
-                                      ),
+                                    FlutterFlowVideoPlayer(
+                                      path: listViewVideosRecord.videoUrl,
+                                      videoType: VideoType.network,
+                                      width: double.infinity,
+                                      aspectRatio: 1.70,
+                                      autoPlay: true,
+                                      looping: false,
+                                      showControls: true,
+                                      allowFullScreen: false,
+                                      allowPlaybackSpeedMenu: true,
+                                      lazyLoad: true,
                                     ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
