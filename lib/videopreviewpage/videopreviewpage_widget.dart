@@ -48,7 +48,8 @@ class _VideopreviewpageWidgetState extends State<VideopreviewpageWidget> {
           onTap: () => FocusScope.of(context).unfocus(),
           child: SingleChildScrollView(
             child: Column(
-              mainAxisSize: MainAxisSize.max,
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Align(
                   alignment: AlignmentDirectional(0, 0),
@@ -58,16 +59,19 @@ class _VideopreviewpageWidgetState extends State<VideopreviewpageWidget> {
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).gray600,
                     ),
-                    child: FlutterFlowVideoPlayer(
-                      path: widget.videourl,
-                      videoType: VideoType.network,
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      height: MediaQuery.of(context).size.height * 0.25,
-                      autoPlay: false,
-                      looping: true,
-                      showControls: true,
-                      allowFullScreen: true,
-                      allowPlaybackSpeedMenu: false,
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                      child: FlutterFlowVideoPlayer(
+                        path: widget.videourl,
+                        videoType: VideoType.network,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: MediaQuery.of(context).size.height * 0.25,
+                        autoPlay: false,
+                        looping: true,
+                        showControls: true,
+                        allowFullScreen: true,
+                        allowPlaybackSpeedMenu: false,
+                      ),
                     ),
                   ),
                 ),
@@ -243,7 +247,7 @@ class _VideopreviewpageWidgetState extends State<VideopreviewpageWidget> {
                         color: Colors.transparent,
                         width: 1,
                       ),
-                      borderRadius: 12,
+                      borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                 ),

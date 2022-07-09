@@ -1,5 +1,6 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -17,12 +18,39 @@ class HomeWidget extends StatefulWidget {
   _HomeWidgetState createState() => _HomeWidgetState();
 }
 
-class _HomeWidgetState extends State<HomeWidget> {
+class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
   PagingController<DocumentSnapshot, VideosRecord> _pagingController;
   Query _pagingQuery;
   List<StreamSubscription> _streamSubscriptions = [];
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final animationsMap = {
+    'listViewOnActionTriggerAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      duration: 600,
+      hideBeforeAnimating: true,
+      initialState: AnimationState(
+        offset: Offset(0, 0),
+        scale: 1,
+        opacity: 0,
+      ),
+      finalState: AnimationState(
+        offset: Offset(0, 0),
+        scale: 1,
+        opacity: 1,
+      ),
+    ),
+  };
+
+  @override
+  void initState() {
+    super.initState();
+    setupTriggerAnimations(
+      animationsMap.values
+          .where((anim) => anim.trigger == AnimationTrigger.onActionTrigger),
+      this,
+    );
+  }
 
   @override
   void dispose() {
@@ -46,7 +74,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(0, 1, 0, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       if (currentUserEmailVerified ?? true)
@@ -84,29 +112,26 @@ class _HomeWidgetState extends State<HomeWidget> {
                         child: Icon(
                           Icons.notifications,
                           color: FlutterFlowTheme.of(context).primaryBtnText,
-                          size: 30,
+                          size: 20,
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 7),
-                        child: FlutterFlowIconButton(
-                          borderColor: Colors.transparent,
-                          borderWidth: 1,
-                          buttonSize: 40,
-                          icon: Icon(
-                            Icons.camera_alt,
-                            color: FlutterFlowTheme.of(context).primaryBtnText,
-                            size: 30,
-                          ),
-                          onPressed: () async {
-                            await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => UploadpageWidget(),
-                              ),
-                            );
-                          },
+                      FlutterFlowIconButton(
+                        borderColor: Colors.transparent,
+                        borderWidth: 1,
+                        buttonSize: 40,
+                        icon: Icon(
+                          Icons.camera_alt,
+                          color: FlutterFlowTheme.of(context).primaryBtnText,
+                          size: 20,
                         ),
+                        onPressed: () async {
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => UploadpageWidget(),
+                            ),
+                          );
+                        },
                       ),
                       Align(
                         alignment: AlignmentDirectional(0, 0),
@@ -118,7 +143,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                           icon: Icon(
                             Icons.location_history,
                             color: FlutterFlowTheme.of(context).primaryBtnText,
-                            size: 30,
+                            size: 20,
                           ),
                           onPressed: () {
                             print('IconButton pressed ...');
@@ -220,17 +245,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       child: FlutterFlowVideoPlayer(
                                         path: listViewVideosRecord.videoUrl,
                                         videoType: VideoType.network,
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.9,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.25,
+                                        aspectRatio: 1.70,
                                         autoPlay: true,
                                         looping: false,
                                         showControls: true,
-                                        allowFullScreen: false,
-                                        allowPlaybackSpeedMenu: true,
+                                        allowFullScreen: true,
+                                        allowPlaybackSpeedMenu: false,
                                         lazyLoad: true,
                                       ),
                                     ),
@@ -272,7 +292,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                     ? textVideosRecordList.first
                                                     : null;
                                             return Text(
-                                              listViewVideosRecord.tags,
+                                              textVideosRecord.tags,
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyText1
@@ -337,7 +357,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                       );
                     },
                   ),
-                ),
+                ).animated([animationsMap['listViewOnActionTriggerAnimation']]),
               ],
             ),
           ),

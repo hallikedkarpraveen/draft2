@@ -103,7 +103,7 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget> {
               children: [
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
+                    padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                     child: Text(
                       'We will send you an email with a link to reset your password, please enter the email associated with your account below.',
                       style: FlutterFlowTheme.of(context).bodyText2.override(
@@ -134,49 +134,57 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget> {
                 ],
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: TextFormField(
-                controller: emailAddressController,
-                obscureText: false,
-                decoration: InputDecoration(
-                  labelText: 'Your email address...',
-                  labelStyle: FlutterFlowTheme.of(context).bodyText2.override(
-                        fontFamily: 'Outfit',
-                        color: Color(0xFF57636C),
-                        fontSize: 14,
-                        fontWeight: FontWeight.normal,
-                      ),
-                  hintText: 'Enter your email...',
-                  hintStyle: FlutterFlowTheme.of(context).bodyText1.override(
-                        fontFamily: 'Lexend Deca',
-                        color: Color(0xFF57636C),
-                        fontSize: 14,
-                        fontWeight: FontWeight.normal,
-                      ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0x00000000),
-                      width: 0,
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0x00000000),
-                      width: 0,
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                  contentPadding:
-                      EdgeInsetsDirectional.fromSTEB(24, 24, 20, 24),
+              child: Visibility(
+                visible: responsiveVisibility(
+                  context: context,
+                  tablet: false,
+                  tabletLandscape: false,
+                  desktop: false,
                 ),
-                style: FlutterFlowTheme.of(context).bodyText1.override(
-                      fontFamily: 'Outfit',
-                      color: Color(0xFF0F1113),
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
+                child: TextFormField(
+                  controller: emailAddressController,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    labelText: 'Your email address...',
+                    labelStyle: FlutterFlowTheme.of(context).bodyText2.override(
+                          fontFamily: 'Outfit',
+                          color: Color(0xFF57636C),
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                        ),
+                    hintText: 'Enter your email...',
+                    hintStyle: FlutterFlowTheme.of(context).bodyText1.override(
+                          fontFamily: 'Lexend Deca',
+                          color: Color(0xFF57636C),
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                        ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0x00000000),
+                        width: 0,
+                      ),
+                      borderRadius: BorderRadius.circular(12),
                     ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0x00000000),
+                        width: 0,
+                      ),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
+                    contentPadding:
+                        EdgeInsetsDirectional.fromSTEB(24, 24, 20, 24),
+                  ),
+                  style: FlutterFlowTheme.of(context).bodyText1.override(
+                        fontFamily: 'Outfit',
+                        color: Color(0xFF0F1113),
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
+                      ),
+                ),
               ),
             ),
           ),
@@ -215,7 +223,7 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget> {
                   color: Colors.transparent,
                   width: 1,
                 ),
-                borderRadius: 8,
+                borderRadius: BorderRadius.circular(8),
               ),
             ),
           ),
