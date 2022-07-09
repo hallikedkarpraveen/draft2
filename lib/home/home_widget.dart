@@ -112,26 +112,29 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                         child: Icon(
                           Icons.notifications,
                           color: FlutterFlowTheme.of(context).primaryBtnText,
-                          size: 20,
+                          size: 30,
                         ),
                       ),
-                      FlutterFlowIconButton(
-                        borderColor: Colors.transparent,
-                        borderWidth: 1,
-                        buttonSize: 40,
-                        icon: Icon(
-                          Icons.camera_alt,
-                          color: FlutterFlowTheme.of(context).primaryBtnText,
-                          size: 20,
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 7),
+                        child: FlutterFlowIconButton(
+                          borderColor: Colors.transparent,
+                          borderWidth: 1,
+                          buttonSize: 40,
+                          icon: Icon(
+                            Icons.camera_alt,
+                            color: FlutterFlowTheme.of(context).primaryBtnText,
+                            size: 30,
+                          ),
+                          onPressed: () async {
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => UploadpageWidget(),
+                              ),
+                            );
+                          },
                         ),
-                        onPressed: () async {
-                          await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => UploadpageWidget(),
-                            ),
-                          );
-                        },
                       ),
                       Align(
                         alignment: AlignmentDirectional(0, 0),
@@ -143,7 +146,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                           icon: Icon(
                             Icons.location_history,
                             color: FlutterFlowTheme.of(context).primaryBtnText,
-                            size: 20,
+                            size: 30,
                           ),
                           onPressed: () {
                             print('IconButton pressed ...');
@@ -245,6 +248,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                       child: FlutterFlowVideoPlayer(
                                         path: listViewVideosRecord.videoUrl,
                                         videoType: VideoType.network,
+                                        width: double.infinity,
                                         aspectRatio: 1.70,
                                         autoPlay: true,
                                         looping: false,
