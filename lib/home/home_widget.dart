@@ -208,6 +208,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                     return _pagingController;
                   }(),
                   padding: EdgeInsets.zero,
+                  primary: false,
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   builderDelegate: PagedChildBuilderDelegate<VideosRecord>(
@@ -250,11 +251,11 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                       width: double.infinity,
                                       aspectRatio: 1.70,
                                       autoPlay: true,
-                                      looping: false,
+                                      looping: true,
                                       showControls: true,
-                                      allowFullScreen: false,
+                                      allowFullScreen: true,
                                       allowPlaybackSpeedMenu: true,
-                                      lazyLoad: true,
+                                      lazyLoad: false,
                                     ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
