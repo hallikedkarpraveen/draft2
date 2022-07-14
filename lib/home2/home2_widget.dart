@@ -1,3 +1,4 @@
+import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_video_player.dart';
@@ -5,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Home2Widget extends StatefulWidget {
-  const Home2Widget({Key key}) : super(key: key);
+  const Home2Widget({Key? key}) : super(key: key);
 
   @override
   _Home2WidgetState createState() => _Home2WidgetState();
@@ -13,6 +14,12 @@ class Home2Widget extends StatefulWidget {
 
 class _Home2WidgetState extends State<Home2Widget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'home2'});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,18 +45,46 @@ class _Home2WidgetState extends State<Home2Widget> {
                 decoration: BoxDecoration(
                   color: Color(0xFFEEEEEE),
                 ),
-                child: FlutterFlowVideoPlayer(
-                  path: 'assets/videos/1656216646077406.mp4',
-                  videoType: VideoType.asset,
-                  width: double.infinity,
-                  height: 300,
-                  aspectRatio: 1.70,
-                  autoPlay: false,
-                  looping: true,
-                  showControls: true,
-                  allowFullScreen: true,
-                  allowPlaybackSpeedMenu: true,
-                  lazyLoad: true,
+                child: StreamBuilder<List<VideosRecord>>(
+                  stream: queryVideosRecord(),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50,
+                          height: 50,
+                          child: CircularProgressIndicator(
+                            color: FlutterFlowTheme.of(context).primaryColor,
+                          ),
+                        ),
+                      );
+                    }
+                    List<VideosRecord> listViewVideosRecordList =
+                        snapshot.data!;
+                    return ListView.builder(
+                      padding: EdgeInsets.zero,
+                      scrollDirection: Axis.vertical,
+                      itemCount: listViewVideosRecordList.length,
+                      itemBuilder: (context, listViewIndex) {
+                        final listViewVideosRecord =
+                            listViewVideosRecordList[listViewIndex];
+                        return FlutterFlowVideoPlayer(
+                          path: listViewVideosRecord!.videoUrl!,
+                          videoType: VideoType.network,
+                          width: double.infinity,
+                          height: 300,
+                          aspectRatio: 1.70,
+                          autoPlay: false,
+                          looping: true,
+                          showControls: true,
+                          allowFullScreen: true,
+                          allowPlaybackSpeedMenu: true,
+                          lazyLoad: true,
+                        );
+                      },
+                    );
+                  },
                 ),
               ),
             ],

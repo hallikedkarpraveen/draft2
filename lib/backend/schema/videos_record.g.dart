@@ -16,10 +16,10 @@ class _$VideosRecordSerializer implements StructuredSerializer<VideosRecord> {
   final String wireName = 'VideosRecord';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, VideosRecord object,
+  Iterable<Object?> serialize(Serializers serializers, VideosRecord object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.tags;
     if (value != null) {
       result
@@ -33,7 +33,7 @@ class _$VideosRecordSerializer implements StructuredSerializer<VideosRecord> {
         ..add('uid')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
-                DocumentReference, const [const FullType(Object)])));
+                DocumentReference, const [const FullType.nullable(Object)])));
     }
     value = object.title;
     if (value != null) {
@@ -63,19 +63,20 @@ class _$VideosRecordSerializer implements StructuredSerializer<VideosRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(LatLng)));
     }
-    value = object.reference;
+    value = object.ffRef;
     if (value != null) {
       result
         ..add('Document__Reference__Field')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
-                DocumentReference, const [const FullType(Object)])));
+                DocumentReference, const [const FullType.nullable(Object)])));
     }
     return result;
   }
 
   @override
-  VideosRecord deserialize(Serializers serializers, Iterable<Object> serialized,
+  VideosRecord deserialize(
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new VideosRecordBuilder();
 
@@ -83,39 +84,39 @@ class _$VideosRecordSerializer implements StructuredSerializer<VideosRecord> {
     while (iterator.moveNext()) {
       final key = iterator.current as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'tags':
           result.tags = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'uid':
           result.uid = serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      DocumentReference, const [const FullType(Object)]))
-              as DocumentReference<Object>;
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
           break;
         case 'title':
           result.title = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'summary':
           result.summary = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'videoUrl':
           result.videoUrl = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'location':
           result.location = serializers.deserialize(value,
-              specifiedType: const FullType(LatLng)) as LatLng;
+              specifiedType: const FullType(LatLng)) as LatLng?;
           break;
         case 'Document__Reference__Field':
-          result.reference = serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      DocumentReference, const [const FullType(Object)]))
-              as DocumentReference<Object>;
+          result.ffRef = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
           break;
       }
     }
@@ -126,21 +127,21 @@ class _$VideosRecordSerializer implements StructuredSerializer<VideosRecord> {
 
 class _$VideosRecord extends VideosRecord {
   @override
-  final String tags;
+  final String? tags;
   @override
-  final DocumentReference<Object> uid;
+  final DocumentReference<Object?>? uid;
   @override
-  final String title;
+  final String? title;
   @override
-  final String summary;
+  final String? summary;
   @override
-  final String videoUrl;
+  final String? videoUrl;
   @override
-  final LatLng location;
+  final LatLng? location;
   @override
-  final DocumentReference<Object> reference;
+  final DocumentReference<Object?>? ffRef;
 
-  factory _$VideosRecord([void Function(VideosRecordBuilder) updates]) =>
+  factory _$VideosRecord([void Function(VideosRecordBuilder)? updates]) =>
       (new VideosRecordBuilder()..update(updates)).build();
 
   _$VideosRecord._(
@@ -150,7 +151,7 @@ class _$VideosRecord extends VideosRecord {
       this.summary,
       this.videoUrl,
       this.location,
-      this.reference})
+      this.ffRef})
       : super._();
 
   @override
@@ -170,7 +171,7 @@ class _$VideosRecord extends VideosRecord {
         summary == other.summary &&
         videoUrl == other.videoUrl &&
         location == other.location &&
-        reference == other.reference;
+        ffRef == other.ffRef;
   }
 
   @override
@@ -184,7 +185,7 @@ class _$VideosRecord extends VideosRecord {
                     summary.hashCode),
                 videoUrl.hashCode),
             location.hashCode),
-        reference.hashCode));
+        ffRef.hashCode));
   }
 
   @override
@@ -196,43 +197,42 @@ class _$VideosRecord extends VideosRecord {
           ..add('summary', summary)
           ..add('videoUrl', videoUrl)
           ..add('location', location)
-          ..add('reference', reference))
+          ..add('ffRef', ffRef))
         .toString();
   }
 }
 
 class VideosRecordBuilder
     implements Builder<VideosRecord, VideosRecordBuilder> {
-  _$VideosRecord _$v;
+  _$VideosRecord? _$v;
 
-  String _tags;
-  String get tags => _$this._tags;
-  set tags(String tags) => _$this._tags = tags;
+  String? _tags;
+  String? get tags => _$this._tags;
+  set tags(String? tags) => _$this._tags = tags;
 
-  DocumentReference<Object> _uid;
-  DocumentReference<Object> get uid => _$this._uid;
-  set uid(DocumentReference<Object> uid) => _$this._uid = uid;
+  DocumentReference<Object?>? _uid;
+  DocumentReference<Object?>? get uid => _$this._uid;
+  set uid(DocumentReference<Object?>? uid) => _$this._uid = uid;
 
-  String _title;
-  String get title => _$this._title;
-  set title(String title) => _$this._title = title;
+  String? _title;
+  String? get title => _$this._title;
+  set title(String? title) => _$this._title = title;
 
-  String _summary;
-  String get summary => _$this._summary;
-  set summary(String summary) => _$this._summary = summary;
+  String? _summary;
+  String? get summary => _$this._summary;
+  set summary(String? summary) => _$this._summary = summary;
 
-  String _videoUrl;
-  String get videoUrl => _$this._videoUrl;
-  set videoUrl(String videoUrl) => _$this._videoUrl = videoUrl;
+  String? _videoUrl;
+  String? get videoUrl => _$this._videoUrl;
+  set videoUrl(String? videoUrl) => _$this._videoUrl = videoUrl;
 
-  LatLng _location;
-  LatLng get location => _$this._location;
-  set location(LatLng location) => _$this._location = location;
+  LatLng? _location;
+  LatLng? get location => _$this._location;
+  set location(LatLng? location) => _$this._location = location;
 
-  DocumentReference<Object> _reference;
-  DocumentReference<Object> get reference => _$this._reference;
-  set reference(DocumentReference<Object> reference) =>
-      _$this._reference = reference;
+  DocumentReference<Object?>? _ffRef;
+  DocumentReference<Object?>? get ffRef => _$this._ffRef;
+  set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
 
   VideosRecordBuilder() {
     VideosRecord._initializeBuilder(this);
@@ -247,7 +247,7 @@ class VideosRecordBuilder
       _summary = $v.summary;
       _videoUrl = $v.videoUrl;
       _location = $v.location;
-      _reference = $v.reference;
+      _ffRef = $v.ffRef;
       _$v = null;
     }
     return this;
@@ -260,7 +260,7 @@ class VideosRecordBuilder
   }
 
   @override
-  void update(void Function(VideosRecordBuilder) updates) {
+  void update(void Function(VideosRecordBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -274,7 +274,7 @@ class VideosRecordBuilder
             summary: summary,
             videoUrl: videoUrl,
             location: location,
-            reference: reference);
+            ffRef: ffRef);
     replace(_$result);
     return _$result;
   }

@@ -10,27 +10,21 @@ abstract class VideosRecord
     implements Built<VideosRecord, VideosRecordBuilder> {
   static Serializer<VideosRecord> get serializer => _$videosRecordSerializer;
 
-  @nullable
-  String get tags;
+  String? get tags;
 
-  @nullable
-  DocumentReference get uid;
+  DocumentReference? get uid;
 
-  @nullable
-  String get title;
+  String? get title;
 
-  @nullable
-  String get summary;
+  String? get summary;
 
-  @nullable
-  String get videoUrl;
+  String? get videoUrl;
 
-  @nullable
-  LatLng get location;
+  LatLng? get location;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(VideosRecordBuilder builder) => builder
     ..tags = ''
@@ -43,11 +37,11 @@ abstract class VideosRecord
 
   static Stream<VideosRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<VideosRecord> getDocumentOnce(DocumentReference ref) => ref
       .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   VideosRecord._();
   factory VideosRecord([void Function(VideosRecordBuilder) updates]) =
@@ -56,16 +50,16 @@ abstract class VideosRecord
   static VideosRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createVideosRecordData({
-  String tags,
-  DocumentReference uid,
-  String title,
-  String summary,
-  String videoUrl,
-  LatLng location,
+  String? tags,
+  DocumentReference? uid,
+  String? title,
+  String? summary,
+  String? videoUrl,
+  LatLng? location,
 }) =>
     serializers.toFirestore(
         VideosRecord.serializer,
