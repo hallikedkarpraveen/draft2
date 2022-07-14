@@ -11,3 +11,4 @@ export 'videopreviewpage/videopreviewpage_widget.dart'
     show VideopreviewpageWidget;
 export 'somethingwentwrong/somethingwentwrong_widget.dart'
     show SomethingwentwrongWidget;
+export 'home2/home2_widget.dart' show Home2Widget;
