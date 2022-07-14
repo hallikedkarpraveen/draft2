@@ -13,28 +13,26 @@ import 'package:google_fonts/google_fonts.dart';
 
 class VideopreviewpageWidget extends StatefulWidget {
   const VideopreviewpageWidget({
-    Key? key,
+    Key key,
     this.videourl,
   }) : super(key: key);
 
-  final String? videourl;
+  final String videourl;
 
   @override
   _VideopreviewpageWidgetState createState() => _VideopreviewpageWidgetState();
 }
 
 class _VideopreviewpageWidgetState extends State<VideopreviewpageWidget> {
-  TextEditingController? textController1;
-  TextEditingController? textController2;
-  TextEditingController? textController3;
+  TextEditingController textController1;
+  TextEditingController textController2;
+  TextEditingController textController3;
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  late LatLng currentUserLocationValue;
+  LatLng currentUserLocationValue;
 
   @override
   void initState() {
     super.initState();
-    logFirebaseEvent('screen_view',
-        parameters: {'screen_name': 'videopreviewpage'});
     textController1 = TextEditingController();
     textController2 = TextEditingController();
     textController3 = TextEditingController();
@@ -64,7 +62,7 @@ class _VideopreviewpageWidgetState extends State<VideopreviewpageWidget> {
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
                       child: FlutterFlowVideoPlayer(
-                        path: widget.videourl!,
+                        path: widget.videourl,
                         videoType: VideoType.network,
                         width: MediaQuery.of(context).size.width * 0.9,
                         height: MediaQuery.of(context).size.height * 0.25,
@@ -207,23 +205,19 @@ class _VideopreviewpageWidgetState extends State<VideopreviewpageWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 30),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      logFirebaseEvent(
-                          'VIDEOPREVIEWPAGE_PAGE_SUBMIT_BTN_ON_TAP');
                       currentUserLocationValue = await getCurrentUserLocation(
                           defaultLocation: LatLng(0.0, 0.0));
-                      logFirebaseEvent('Button_Backend-Call');
 
                       final videosCreateData = createVideosRecordData(
-                        tags: textController3!.text,
-                        title: textController1!.text,
-                        summary: textController2!.text,
+                        tags: textController3.text,
+                        title: textController1.text,
+                        summary: textController2.text,
                         videoUrl: widget.videourl,
                         uid: currentUserReference,
                         location: currentUserLocationValue,
                       );
                       await VideosRecord.collection.doc().set(videosCreateData);
                       if ((widget.videourl) == (widget.videourl)) {
-                        logFirebaseEvent('Button_Navigate-To');
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -231,7 +225,6 @@ class _VideopreviewpageWidgetState extends State<VideopreviewpageWidget> {
                           ),
                         );
                       } else {
-                        logFirebaseEvent('Button_Navigate-To');
                         await Navigator.push(
                           context,
                           MaterialPageRoute(

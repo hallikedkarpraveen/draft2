@@ -13,16 +13,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class HomeWidget extends StatefulWidget {
-  const HomeWidget({Key? key}) : super(key: key);
+  const HomeWidget({Key key}) : super(key: key);
 
   @override
   _HomeWidgetState createState() => _HomeWidgetState();
 }
 
 class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
-  PagingController<DocumentSnapshot?, VideosRecord>? _pagingController;
-  Query? _pagingQuery;
-  List<StreamSubscription?> _streamSubscriptions = [];
+  PagingController<DocumentSnapshot, VideosRecord> _pagingController;
+  Query _pagingQuery;
+  List<StreamSubscription> _streamSubscriptions = [];
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final animationsMap = {
@@ -51,8 +51,6 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
           .where((anim) => anim.trigger == AnimationTrigger.onActionTrigger),
       this,
     );
-
-    logFirebaseEvent('screen_view', parameters: {'screen_name': 'home'});
   }
 
   @override
@@ -103,8 +101,6 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                         ),
                       InkWell(
                         onTap: () async {
-                          logFirebaseEvent('HOME_PAGE_Icon_v37x16z9_ON_TAP');
-                          logFirebaseEvent('Icon_Auth');
                           await signOut();
                           await Navigator.pushAndRemoveUntil(
                             context,
@@ -132,8 +128,6 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                             size: 30,
                           ),
                           onPressed: () async {
-                            logFirebaseEvent('HOME_PAGE_camera_alt_ICN_ON_TAP');
-                            logFirebaseEvent('IconButton_Navigate-To');
                             await Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -156,9 +150,6 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                             size: 30,
                           ),
                           onPressed: () async {
-                            logFirebaseEvent(
-                                'HOME_PAGE_location_history_ICN_ON_TAP');
-                            logFirebaseEvent('IconButton_Navigate-To');
                             await Navigator.push(
                               context,
                               PageTransition(
@@ -174,9 +165,9 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                     ],
                   ),
                 ),
-                PagedListView<DocumentSnapshot<Object?>?, VideosRecord>(
+                PagedListView<DocumentSnapshot<Object>, VideosRecord>(
                   pagingController: () {
-                    final Query<Object?> Function(Query<Object?>) queryBuilder =
+                    final Query<Object> Function(Query<Object>) queryBuilder =
                         (videosRecord) => videosRecord;
                     if (_pagingController != null) {
                       final query = queryBuilder(VideosRecord.collection);
@@ -185,35 +176,35 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                         _pagingQuery = query;
                         _streamSubscriptions.forEach((s) => s?.cancel());
                         _streamSubscriptions.clear();
-                        _pagingController!.refresh();
+                        _pagingController.refresh();
                       }
-                      return _pagingController!;
+                      return _pagingController;
                     }
 
                     _pagingController = PagingController(firstPageKey: null);
                     _pagingQuery = queryBuilder(VideosRecord.collection);
-                    _pagingController!.addPageRequestListener((nextPageMarker) {
+                    _pagingController.addPageRequestListener((nextPageMarker) {
                       queryVideosRecordPage(
                         queryBuilder: (videosRecord) => videosRecord,
                         nextPageMarker: nextPageMarker,
                         pageSize: 25,
                         isStream: true,
                       ).then((page) {
-                        _pagingController!.appendPage(
+                        _pagingController.appendPage(
                           page.data,
                           page.nextPageMarker,
                         );
                         final streamSubscription =
                             page.dataStream?.listen((data) {
-                          final itemIndexes = _pagingController!.itemList!
+                          final itemIndexes = _pagingController.itemList
                               .asMap()
                               .map((k, v) => MapEntry(v.reference.id, k));
                           data.forEach((item) {
                             final index = itemIndexes[item.reference.id];
-                            final items = _pagingController!.itemList!;
+                            final items = _pagingController.itemList;
                             if (index != null) {
                               items.replaceRange(index, index + 1, [item]);
-                              _pagingController!.itemList = {
+                              _pagingController.itemList = {
                                 for (var item in items) item.reference: item
                               }.values.toList();
                             }
@@ -223,7 +214,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                         _streamSubscriptions.add(streamSubscription);
                       });
                     });
-                    return _pagingController!;
+                    return _pagingController;
                   }(),
                   padding: EdgeInsets.zero,
                   primary: false,
@@ -243,7 +234,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
 
                     itemBuilder: (context, _, listViewIndex) {
                       final listViewVideosRecord =
-                          _pagingController!.itemList![listViewIndex];
+                          _pagingController.itemList[listViewIndex];
                       return SingleChildScrollView(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -264,7 +255,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                     desktop: false,
                                   ))
                                     FlutterFlowVideoPlayer(
-                                      path: listViewVideosRecord!.videoUrl!,
+                                      path: listViewVideosRecord.videoUrl,
                                       videoType: VideoType.network,
                                       width: double.infinity,
                                       aspectRatio: 1.70,
@@ -303,15 +294,17 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                             }
                                             List<VideosRecord>
                                                 textVideosRecordList =
-                                                snapshot.data!;
+                                                snapshot.data;
                                             // Return an empty Container when the document does not exist.
-                                            if (snapshot.data!.isEmpty) {
+                                            if (snapshot.data.isEmpty) {
                                               return Container();
                                             }
                                             final textVideosRecord =
-                                                textVideosRecordList.first;
+                                                textVideosRecordList.isNotEmpty
+                                                    ? textVideosRecordList.first
+                                                    : null;
                                             return Text(
-                                              textVideosRecord!.tags!,
+                                              textVideosRecord.tags,
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyText1
@@ -335,7 +328,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Text(
-                                          listViewVideosRecord!.title!,
+                                          listViewVideosRecord.title,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
                                               .override(
@@ -355,7 +348,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Text(
-                                          listViewVideosRecord!.summary!,
+                                          listViewVideosRecord.summary,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1
                                               .override(
@@ -376,8 +369,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                       );
                     },
                   ),
-                ).animated(
-                    [animationsMap['listViewOnActionTriggerAnimation']!]),
+                ).animated([animationsMap['listViewOnActionTriggerAnimation']]),
               ],
             ),
           ),

@@ -8,18 +8,18 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RegisteruserWidget extends StatefulWidget {
-  const RegisteruserWidget({Key? key}) : super(key: key);
+  const RegisteruserWidget({Key key}) : super(key: key);
 
   @override
   _RegisteruserWidgetState createState() => _RegisteruserWidgetState();
 }
 
 class _RegisteruserWidgetState extends State<RegisteruserWidget> {
-  TextEditingController? confirmPasswordController;
-  late bool confirmPasswordVisibility;
-  TextEditingController? emailAddressController;
-  TextEditingController? passwordController;
-  late bool passwordVisibility;
+  TextEditingController confirmPasswordController;
+  bool confirmPasswordVisibility;
+  TextEditingController emailAddressController;
+  TextEditingController passwordController;
+  bool passwordVisibility;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -30,8 +30,6 @@ class _RegisteruserWidgetState extends State<RegisteruserWidget> {
     emailAddressController = TextEditingController();
     passwordController = TextEditingController();
     passwordVisibility = false;
-    logFirebaseEvent('screen_view',
-        parameters: {'screen_name': 'registeruser'});
   }
 
   @override
@@ -66,9 +64,6 @@ class _RegisteruserWidgetState extends State<RegisteruserWidget> {
                           size: 24,
                         ),
                         onPressed: () async {
-                          logFirebaseEvent(
-                              'REGISTERUSER_arrow_back_rounded_ICN_ON_T');
-                          logFirebaseEvent('IconButton_Navigate-Back');
                           Navigator.pop(context);
                         },
                       ),
@@ -349,8 +344,6 @@ class _RegisteruserWidgetState extends State<RegisteruserWidget> {
             padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
             child: FFButtonWidget(
               onPressed: () async {
-                logFirebaseEvent('REGISTERUSER_PAGE_Button-Login_ON_TAP');
-                logFirebaseEvent('Button-Login_Auth');
                 if (passwordController?.text !=
                     confirmPasswordController?.text) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -365,8 +358,8 @@ class _RegisteruserWidgetState extends State<RegisteruserWidget> {
 
                 final user = await createAccountWithEmail(
                   context,
-                  emailAddressController!.text,
-                  passwordController!.text,
+                  emailAddressController.text,
+                  passwordController.text,
                 );
                 if (user == null) {
                   return;

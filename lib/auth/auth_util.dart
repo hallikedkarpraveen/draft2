@@ -16,18 +16,16 @@ export 'google_auth.dart';
 
 /// Tries to sign in or create an account using Firebase Auth.
 /// Returns the User object if sign in was successful.
-Future<User?> signInOrCreateAccount(
-    BuildContext context, Future<UserCredential?> Function() signInFunc) async {
+Future<User> signInOrCreateAccount(
+    BuildContext context, Future<UserCredential> Function() signInFunc) async {
   try {
     final userCredential = await signInFunc();
-    if (userCredential?.user != null) {
-      await maybeCreateUser(userCredential!.user!);
-    }
-    return userCredential?.user;
+    await maybeCreateUser(userCredential.user);
+    return userCredential.user;
   } on FirebaseAuthException catch (e) {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Error: ${e.message!}')),
+      SnackBar(content: Text('Error: ${e.message}')),
     );
     return null;
   }
@@ -35,7 +33,7 @@ Future<User?> signInOrCreateAccount(
 
 Future signOut() {
   _currentJwtToken = '';
-  return FirebaseAuth.instance.signOut();
+  FirebaseAuth.instance.signOut();
 }
 
 Future deleteUser(BuildContext context) async {
@@ -57,14 +55,13 @@ Future deleteUser(BuildContext context) async {
   }
 }
 
-Future resetPassword(
-    {required String email, required BuildContext context}) async {
+Future resetPassword({String email, BuildContext context}) async {
   try {
     await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
   } on FirebaseAuthException catch (e) {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Error: ${e.message!}')),
+      SnackBar(content: Text('Error: ${e.message}')),
     );
     return null;
   }
@@ -76,7 +73,7 @@ Future resetPassword(
 Future sendEmailVerification() async =>
     currentUser?.user?.sendEmailVerification();
 
-String? _currentJwtToken = '';
+String _currentJwtToken = '';
 
 String get currentUserEmail =>
     currentUserDocument?.email ?? currentUser?.user?.email ?? '';
@@ -97,23 +94,23 @@ String get currentJwtToken => _currentJwtToken ?? '';
 bool get currentUserEmailVerified {
   // Reloads the user when checking in order to get the most up to date
   // email verified status.
-  if (currentUser?.user != null && !currentUser!.user!.emailVerified) {
-    currentUser!.user!
+  if (currentUser?.user != null && !currentUser.user.emailVerified) {
+    currentUser.user
         .reload()
-        .then((_) => currentUser!.user = FirebaseAuth.instance.currentUser);
+        .then((_) => currentUser.user = FirebaseAuth.instance.currentUser);
   }
   return currentUser?.user?.emailVerified ?? false;
 }
 
 // Set when using phone verification (after phone number is provided).
-String? _phoneAuthVerificationCode;
+String _phoneAuthVerificationCode;
 // Set when using phone sign in in web mode (ignored otherwise).
-ConfirmationResult? _webPhoneAuthConfirmationResult;
+ConfirmationResult _webPhoneAuthConfirmationResult;
 
 Future beginPhoneAuth({
-  required BuildContext context,
-  required String phoneNumber,
-  required VoidCallback onCodeSent,
+  BuildContext context,
+  String phoneNumber,
+  VoidCallback onCodeSent,
 }) async {
   if (kIsWeb) {
     _webPhoneAuthConfirmationResult =
@@ -141,7 +138,7 @@ Future beginPhoneAuth({
     },
     verificationFailed: (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Error: ${e.message!}'),
+        content: Text('Error: ${e.message}'),
       ));
     },
     codeSent: (verificationId, _) {
@@ -153,15 +150,15 @@ Future beginPhoneAuth({
 }
 
 Future verifySmsCode({
-  required BuildContext context,
-  required String smsCode,
+  BuildContext context,
+  String smsCode,
 }) async {
   if (kIsWeb) {
     return signInOrCreateAccount(
-        context, () => _webPhoneAuthConfirmationResult!.confirm(smsCode));
+        context, () => _webPhoneAuthConfirmationResult.confirm(smsCode));
   } else {
     final authCredential = PhoneAuthProvider.credential(
-        verificationId: _phoneAuthVerificationCode!, smsCode: smsCode);
+        verificationId: _phoneAuthVerificationCode, smsCode: smsCode);
     return signInOrCreateAccount(
       context,
       () => FirebaseAuth.instance.signInWithCredential(authCredential),
@@ -169,11 +166,11 @@ Future verifySmsCode({
   }
 }
 
-DocumentReference? get currentUserReference => currentUser?.user != null
-    ? UsersRecord.collection.doc(currentUser!.user!.uid)
+DocumentReference get currentUserReference => currentUser?.user != null
+    ? UsersRecord.collection.doc(currentUser.user.uid)
     : null;
 
-UsersRecord? currentUserDocument;
+UsersRecord currentUserDocument;
 final authenticatedUserStream = FirebaseAuth.instance
     .authStateChanges()
     .map<String>((user) {
@@ -193,7 +190,7 @@ final authenticatedUserStream = FirebaseAuth.instance
     .asBroadcastStream();
 
 class AuthUserStreamWidget extends StatelessWidget {
-  const AuthUserStreamWidget({Key? key, required this.child}) : super(key: key);
+  const AuthUserStreamWidget({Key key, this.child}) : super(key: key);
 
   final Widget child;
 

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class WelcomeWidget extends StatefulWidget {
-  const WelcomeWidget({Key? key}) : super(key: key);
+  const WelcomeWidget({Key key}) : super(key: key);
 
   @override
   _WelcomeWidgetState createState() => _WelcomeWidgetState();
@@ -118,8 +118,6 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
           .where((anim) => anim.trigger == AnimationTrigger.onActionTrigger),
       this,
     );
-
-    logFirebaseEvent('screen_view', parameters: {'screen_name': 'welcome'});
   }
 
   @override
@@ -140,8 +138,6 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
         ),
         child: InkWell(
           onTap: () async {
-            logFirebaseEvent('WELCOME_PAGE_Column_unlxom4n_ON_TAP');
-            logFirebaseEvent('Column_Navigate-To');
             await Navigator.push(
               context,
               PageTransition(
@@ -161,28 +157,28 @@ class _WelcomeWidgetState extends State<WelcomeWidget>
                 width: 140,
                 height: 140,
                 fit: BoxFit.fitHeight,
-              ).animated([animationsMap['imageOnPageLoadAnimation']!]),
+              ).animated([animationsMap['imageOnPageLoadAnimation']]),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                 child: Text(
                   'Welcome to Wiziton Media',
                   style: FlutterFlowTheme.of(context).title3,
-                ).animated([animationsMap['textOnPageLoadAnimation1']!]),
+                ).animated([animationsMap['textOnPageLoadAnimation1']]),
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 120),
                 child: Text(
                   ' Effortlessly Report',
                   style: FlutterFlowTheme.of(context).subtitle2,
-                ).animated([animationsMap['textOnPageLoadAnimation2']!]),
+                ).animated([animationsMap['textOnPageLoadAnimation2']]),
               ),
             ],
           ),
         ).animated([
-          animationsMap['columnOnPageLoadAnimation']!,
-          animationsMap['columnOnActionTriggerAnimation']!
+          animationsMap['columnOnPageLoadAnimation'],
+          animationsMap['columnOnActionTriggerAnimation']
         ]),
-      ).animated([animationsMap['containerOnPageLoadAnimation']!]),
+      ).animated([animationsMap['containerOnPageLoadAnimation']]),
     );
   }
 }

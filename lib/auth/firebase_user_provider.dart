@@ -3,11 +3,11 @@ import 'package:rxdart/rxdart.dart';
 
 class ProjectDraft2FirebaseUser {
   ProjectDraft2FirebaseUser(this.user);
-  User? user;
+  User user;
   bool get loggedIn => user != null;
 }
 
-ProjectDraft2FirebaseUser? currentUser;
+ProjectDraft2FirebaseUser currentUser;
 bool get loggedIn => currentUser?.loggedIn ?? false;
 Stream<ProjectDraft2FirebaseUser> projectDraft2FirebaseUserStream() =>
     FirebaseAuth.instance

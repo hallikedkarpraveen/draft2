@@ -23,13 +23,13 @@ class AnimationState {
 class AnimationInfo {
   AnimationInfo({
     this.curve = Curves.easeInOut,
-    required this.trigger,
-    required this.duration,
+    @required this.trigger,
+    @required this.duration,
     this.delay = 0,
     this.hideBeforeAnimating = true,
     this.fadeIn = false,
-    required this.initialState,
-    required this.finalState,
+    this.initialState,
+    this.finalState,
   });
 
   final Curve curve;
@@ -40,7 +40,7 @@ class AnimationInfo {
   final bool fadeIn;
   final AnimationState initialState;
   final AnimationState finalState;
-  late CurvedAnimation curvedAnimation;
+  CurvedAnimation curvedAnimation;
 }
 
 void createAnimation(AnimationInfo animation, TickerProvider vsync) {

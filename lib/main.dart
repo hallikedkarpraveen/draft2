@@ -24,15 +24,15 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 
   static _MyAppState of(BuildContext context) =>
-      context.findAncestorStateOfType<_MyAppState>()!;
+      context.findAncestorStateOfType<_MyAppState>();
 }
 
 class _MyAppState extends State<MyApp> {
-  Locale? _locale;
+  Locale _locale;
   ThemeMode _themeMode = FlutterFlowTheme.themeMode;
 
-  late Stream<ProjectDraft2FirebaseUser> userStream;
-  ProjectDraft2FirebaseUser? initialUser;
+  Stream<ProjectDraft2FirebaseUser> userStream;
+  ProjectDraft2FirebaseUser initialUser;
   bool displaySplashImage = true;
 
   final authUserSub = authenticatedUserStream.listen((_) {});
@@ -79,16 +79,16 @@ class _MyAppState extends State<MyApp> {
       darkTheme: ThemeData(brightness: Brightness.dark),
       themeMode: _themeMode,
       home: initialUser == null || displaySplashImage
-          ? Container(
-              color: Colors.transparent,
-              child: Builder(
-                builder: (context) => Image.asset(
-                  'assets/images/giphy.gif',
-                  fit: BoxFit.cover,
+          ? Center(
+              child: SizedBox(
+                width: 50,
+                height: 50,
+                child: CircularProgressIndicator(
+                  color: FlutterFlowTheme.of(context).primaryColor,
                 ),
               ),
             )
-          : currentUser!.loggedIn
+          : currentUser.loggedIn
               ? HomeWidget()
               : WelcomeWidget(),
     );

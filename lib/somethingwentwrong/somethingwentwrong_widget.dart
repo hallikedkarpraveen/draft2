@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SomethingwentwrongWidget extends StatefulWidget {
-  const SomethingwentwrongWidget({Key? key}) : super(key: key);
+  const SomethingwentwrongWidget({Key key}) : super(key: key);
 
   @override
   _SomethingwentwrongWidgetState createState() =>
@@ -13,13 +13,6 @@ class SomethingwentwrongWidget extends StatefulWidget {
 
 class _SomethingwentwrongWidgetState extends State<SomethingwentwrongWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  void initState() {
-    super.initState();
-    logFirebaseEvent('screen_view',
-        parameters: {'screen_name': 'somethingwentwrong'});
-  }
 
   @override
   Widget build(BuildContext context) {
