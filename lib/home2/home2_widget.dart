@@ -1,5 +1,3 @@
-import '../auth/auth_util.dart';
-import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_video_player.dart';
@@ -20,6 +18,13 @@ class _Home2WidgetState extends State<Home2Widget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      appBar: AppBar(
+        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+        automaticallyImplyLeading: true,
+        actions: [],
+        centerTitle: true,
+        elevation: 4,
+      ),
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
@@ -27,47 +32,25 @@ class _Home2WidgetState extends State<Home2Widget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              StreamBuilder<List<VideosRecord>>(
-                stream: queryVideosRecord(
-                  limit: 25,
+              Container(
+                width: double.infinity,
+                height: 300,
+                decoration: BoxDecoration(
+                  color: Color(0xFFEEEEEE),
                 ),
-                builder: (context, snapshot) {
-                  // Customize what your widget looks like when it's loading.
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: SizedBox(
-                        width: 50,
-                        height: 50,
-                        child: CircularProgressIndicator(
-                          color: FlutterFlowTheme.of(context).primaryColor,
-                        ),
-                      ),
-                    );
-                  }
-                  List<VideosRecord> listViewVideosRecordList = snapshot.data;
-                  return ListView.builder(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    itemCount: listViewVideosRecordList.length,
-                    itemBuilder: (context, listViewIndex) {
-                      final listViewVideosRecord =
-                          listViewVideosRecordList[listViewIndex];
-                      return AuthUserStreamWidget(
-                        child: FlutterFlowVideoPlayer(
-                          path:
-                              valueOrDefault(currentUserDocument?.videoUrl, ''),
-                          videoType: VideoType.network,
-                          autoPlay: false,
-                          looping: true,
-                          showControls: true,
-                          allowFullScreen: true,
-                          allowPlaybackSpeedMenu: false,
-                        ),
-                      );
-                    },
-                  );
-                },
+                child: FlutterFlowVideoPlayer(
+                  path: 'assets/videos/1656216646077406.mp4',
+                  videoType: VideoType.asset,
+                  width: double.infinity,
+                  height: 300,
+                  aspectRatio: 1.70,
+                  autoPlay: false,
+                  looping: true,
+                  showControls: true,
+                  allowFullScreen: true,
+                  allowPlaybackSpeedMenu: true,
+                  lazyLoad: true,
+                ),
               ),
             ],
           ),
