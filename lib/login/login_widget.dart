@@ -12,16 +12,16 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginWidget extends StatefulWidget {
-  const LoginWidget({Key key}) : super(key: key);
+  const LoginWidget({Key? key}) : super(key: key);
 
   @override
   _LoginWidgetState createState() => _LoginWidgetState();
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
-  TextEditingController emailAddressController;
-  TextEditingController passwordController;
-  bool passwordVisibility;
+  TextEditingController? emailAddressController;
+  TextEditingController? passwordController;
+  late bool passwordVisibility;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -30,6 +30,7 @@ class _LoginWidgetState extends State<LoginWidget> {
     emailAddressController = TextEditingController();
     passwordController = TextEditingController();
     passwordVisibility = false;
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Login'});
   }
 
   @override
@@ -79,10 +80,14 @@ class _LoginWidgetState extends State<LoginWidget> {
                               child: TextFormField(
                                 controller: emailAddressController,
                                 onFieldSubmitted: (_) async {
+                                  logFirebaseEvent(
+                                      'LOGIN_emailAddress_ON_TEXTFIELD_SUBMIT');
+                                  logFirebaseEvent('emailAddress_Auth');
+
                                   final user = await signInWithEmail(
                                     context,
-                                    emailAddressController.text,
-                                    passwordController.text,
+                                    emailAddressController!.text,
+                                    passwordController!.text,
                                   );
                                   if (user == null) {
                                     return;
@@ -233,6 +238,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                           children: [
                             FFButtonWidget(
                               onPressed: () async {
+                                logFirebaseEvent(
+                                    'LOGIN_PAGE_Button-ForgotPassword_ON_TAP');
+                                logFirebaseEvent(
+                                    'Button-ForgotPassword_Navigate-To');
                                 await Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -264,10 +273,14 @@ class _LoginWidgetState extends State<LoginWidget> {
                             ),
                             FFButtonWidget(
                               onPressed: () async {
+                                logFirebaseEvent(
+                                    'LOGIN_PAGE_Button-Login_ON_TAP');
+                                logFirebaseEvent('Button-Login_Auth');
+
                                 final user = await signInWithEmail(
                                   context,
-                                  emailAddressController.text,
-                                  passwordController.text,
+                                  emailAddressController!.text,
+                                  passwordController!.text,
                                 );
                                 if (user == null) {
                                   return;
@@ -334,6 +347,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                           children: [
                             InkWell(
                               onTap: () async {
+                                logFirebaseEvent(
+                                    'LOGIN_PAGE_Container_lopmu6nt_ON_TAP');
+                                logFirebaseEvent('Container_Auth');
                                 final user = await signInWithGoogle(context);
                                 if (user == null) {
                                   return;
@@ -370,6 +386,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                             ),
                             InkWell(
                               onTap: () async {
+                                logFirebaseEvent(
+                                    'LOGIN_PAGE_Container_ef93r4b1_ON_TAP');
+                                logFirebaseEvent('Container_Auth');
                                 final user = await signInWithFacebook(context);
                                 if (user == null) {
                                   return;
@@ -406,6 +425,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                             ),
                             InkWell(
                               onTap: () async {
+                                logFirebaseEvent(
+                                    'LOGIN_PAGE_Container_ensfnfu2_ON_TAP');
+                                logFirebaseEvent('Container_Navigate-To');
                                 await Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -446,6 +468,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                           children: [
                             InkWell(
                               onTap: () async {
+                                logFirebaseEvent(
+                                    'LOGIN_PAGE_Text_0xleoel8_ON_TAP');
+                                logFirebaseEvent('Text_Navigate-To');
                                 await Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -467,6 +492,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                             ),
                             FFButtonWidget(
                               onPressed: () async {
+                                logFirebaseEvent(
+                                    'LOGIN_PAGE_REGISTER_BTN_ON_TAP');
+                                logFirebaseEvent('Button_Navigate-To');
                                 await Navigator.push(
                                   context,
                                   MaterialPageRoute(

@@ -7,20 +7,22 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ForgotpasswordWidget extends StatefulWidget {
-  const ForgotpasswordWidget({Key key}) : super(key: key);
+  const ForgotpasswordWidget({Key? key}) : super(key: key);
 
   @override
   _ForgotpasswordWidgetState createState() => _ForgotpasswordWidgetState();
 }
 
 class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget> {
-  TextEditingController emailAddressController;
+  TextEditingController? emailAddressController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
     emailAddressController = TextEditingController();
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'forgotpassword'});
   }
 
   @override
@@ -55,6 +57,9 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget> {
                           size: 24,
                         ),
                         onPressed: () async {
+                          logFirebaseEvent(
+                              'FORGOTPASSWORD_arrow_back_rounded_ICN_ON');
+                          logFirebaseEvent('IconButton_Navigate-Back');
                           Navigator.pop(context);
                         },
                       ),
@@ -192,7 +197,9 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget> {
             padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
             child: FFButtonWidget(
               onPressed: () async {
-                if (emailAddressController.text.isEmpty) {
+                logFirebaseEvent('FORGOTPASSWORD_PAGE_Button-Login_ON_TAP');
+                logFirebaseEvent('Button-Login_Auth');
+                if (emailAddressController!.text.isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
@@ -203,7 +210,7 @@ class _ForgotpasswordWidgetState extends State<ForgotpasswordWidget> {
                   return;
                 }
                 await resetPassword(
-                  email: emailAddressController.text,
+                  email: emailAddressController!.text,
                   context: context,
                 );
               },

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class UploadpageWidget extends StatefulWidget {
-  const UploadpageWidget({Key key}) : super(key: key);
+  const UploadpageWidget({Key? key}) : super(key: key);
 
   @override
   _UploadpageWidgetState createState() => _UploadpageWidgetState();
@@ -16,6 +16,12 @@ class UploadpageWidget extends StatefulWidget {
 class _UploadpageWidgetState extends State<UploadpageWidget> {
   String uploadedFileUrl = '';
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'uploadpage'});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +74,9 @@ class _UploadpageWidgetState extends State<UploadpageWidget> {
                                   EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),
                               child: InkWell(
                                 onTap: () async {
+                                  logFirebaseEvent(
+                                      'UPLOADPAGE_PAGE_Column_qlic3q0n_ON_TAP');
+                                  logFirebaseEvent('Column_Upload-Photo-Video');
                                   final selectedMedia = await selectMedia(
                                     isVideo: true,
                                     multiImage: false,
@@ -86,6 +95,7 @@ class _UploadpageWidgetState extends State<UploadpageWidget> {
                                                 await uploadData(
                                                     m.storagePath, m.bytes))))
                                         .where((u) => u != null)
+                                        .map((u) => u!)
                                         .toList();
                                     ScaffoldMessenger.of(context)
                                         .hideCurrentSnackBar();
@@ -107,6 +117,7 @@ class _UploadpageWidgetState extends State<UploadpageWidget> {
                                     }
                                   }
 
+                                  logFirebaseEvent('Column_Navigate-To');
                                   await Navigator.push(
                                     context,
                                     MaterialPageRoute(

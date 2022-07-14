@@ -9,19 +9,20 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PhonenumberWidget extends StatefulWidget {
-  const PhonenumberWidget({Key key}) : super(key: key);
+  const PhonenumberWidget({Key? key}) : super(key: key);
 
   @override
   _PhonenumberWidgetState createState() => _PhonenumberWidgetState();
 }
 
 class _PhonenumberWidgetState extends State<PhonenumberWidget> {
-  TextEditingController phoneNumberController;
+  TextEditingController? phoneNumberController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Phonenumber'});
     phoneNumberController = TextEditingController();
   }
 
@@ -115,6 +116,9 @@ class _PhonenumberWidgetState extends State<PhonenumberWidget> {
                                   size: 24,
                                 ),
                                 onPressed: () async {
+                                  logFirebaseEvent(
+                                      'PHONENUMBER_arrow_back_rounded_ICN_ON_TA');
+                                  logFirebaseEvent('IconButton_Navigate-To');
                                   await Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -210,8 +214,11 @@ class _PhonenumberWidgetState extends State<PhonenumberWidget> {
                           children: [
                             FFButtonWidget(
                               onPressed: () async {
+                                logFirebaseEvent(
+                                    'PHONENUMBER_PAGE_SIGN_IN_BTN_ON_TAP');
+                                logFirebaseEvent('Button_Auth');
                                 final phoneNumberVal =
-                                    phoneNumberController.text;
+                                    phoneNumberController!.text;
                                 if (phoneNumberVal == null ||
                                     phoneNumberVal.isEmpty ||
                                     !phoneNumberVal.startsWith('+')) {

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Home2Widget extends StatefulWidget {
-  const Home2Widget({Key key}) : super(key: key);
+  const Home2Widget({Key? key}) : super(key: key);
 
   @override
   _Home2WidgetState createState() => _Home2WidgetState();
@@ -14,6 +14,12 @@ class Home2Widget extends StatefulWidget {
 
 class _Home2WidgetState extends State<Home2Widget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'home2'});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +60,8 @@ class _Home2WidgetState extends State<Home2Widget> {
                         ),
                       );
                     }
-                    List<VideosRecord> listViewVideosRecordList = snapshot.data;
+                    List<VideosRecord> listViewVideosRecordList =
+                        snapshot.data!;
                     return ListView.builder(
                       padding: EdgeInsets.zero,
                       scrollDirection: Axis.vertical,
@@ -63,7 +70,7 @@ class _Home2WidgetState extends State<Home2Widget> {
                         final listViewVideosRecord =
                             listViewVideosRecordList[listViewIndex];
                         return FlutterFlowVideoPlayer(
-                          path: listViewVideosRecord.videoUrl,
+                          path: listViewVideosRecord!.videoUrl!,
                           videoType: VideoType.network,
                           width: double.infinity,
                           height: 300,

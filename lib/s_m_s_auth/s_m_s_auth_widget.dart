@@ -9,19 +9,20 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SMSAuthWidget extends StatefulWidget {
-  const SMSAuthWidget({Key key}) : super(key: key);
+  const SMSAuthWidget({Key? key}) : super(key: key);
 
   @override
   _SMSAuthWidgetState createState() => _SMSAuthWidgetState();
 }
 
 class _SMSAuthWidgetState extends State<SMSAuthWidget> {
-  TextEditingController smsotpController;
+  TextEditingController? smsotpController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'SMSAuth'});
     smsotpController = TextEditingController();
   }
 
@@ -115,6 +116,9 @@ class _SMSAuthWidgetState extends State<SMSAuthWidget> {
                                   size: 24,
                                 ),
                                 onPressed: () async {
+                                  logFirebaseEvent(
+                                      'S_M_S_AUTH_arrow_back_rounded_ICN_ON_TAP');
+                                  logFirebaseEvent('IconButton_Navigate-To');
                                   await Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -210,7 +214,10 @@ class _SMSAuthWidgetState extends State<SMSAuthWidget> {
                           children: [
                             FFButtonWidget(
                               onPressed: () async {
-                                final smsCodeVal = smsotpController.text;
+                                logFirebaseEvent(
+                                    'S_M_S_AUTH_PAGE_SUBMIT_BTN_ON_TAP');
+                                logFirebaseEvent('Button_Auth');
+                                final smsCodeVal = smsotpController!.text;
                                 if (smsCodeVal == null || smsCodeVal.isEmpty) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
