@@ -5,6 +5,7 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_video_player.dart';
+import '../home2/home2_widget.dart';
 import '../uploadpage/uploadpage_widget.dart';
 import '../welcome/welcome_widget.dart';
 import 'package:flutter/material.dart';
@@ -148,8 +149,16 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                             color: FlutterFlowTheme.of(context).primaryBtnText,
                             size: 30,
                           ),
-                          onPressed: () {
-                            print('IconButton pressed ...');
+                          onPressed: () async {
+                            await Navigator.push(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.fade,
+                                duration: Duration(milliseconds: 300),
+                                reverseDuration: Duration(milliseconds: 300),
+                                child: Home2Widget(),
+                              ),
+                            );
                           },
                         ),
                       ),
