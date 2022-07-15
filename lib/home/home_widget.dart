@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_video_player.dart';
+import '../home2/home2_widget.dart';
 import '../uploadpage/uploadpage_widget.dart';
 import '../welcome/welcome_widget.dart';
 import 'package:flutter/material.dart';
@@ -71,8 +72,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                       color: FlutterFlowTheme.of(context).primaryBtnText,
                       size: 25,
                     ),
-                    onPressed: () {
-                      print('IconButton pressed ...');
+                    onPressed: () async {
+                      logFirebaseEvent('HOME_PAGE_add_ICN_ON_TAP');
+                      logFirebaseEvent('IconButton_Navigate-To');
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Home2Widget(),
+                        ),
+                      );
                     },
                   ),
                   FlutterFlowIconButton(

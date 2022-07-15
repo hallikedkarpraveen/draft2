@@ -25,9 +25,6 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   @BuiltValueField(wireName: 'phone_number')
   String? get phoneNumber;
 
-  @BuiltValueField(wireName: 'video_url')
-  String? get videoUrl;
-
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -37,8 +34,7 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..displayName = ''
     ..photoUrl = ''
     ..uid = ''
-    ..phoneNumber = ''
-    ..videoUrl = '';
+    ..phoneNumber = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -68,7 +64,6 @@ Map<String, dynamic> createUsersRecordData({
   String? uid,
   DateTime? createdTime,
   String? phoneNumber,
-  String? videoUrl,
 }) =>
     serializers.toFirestore(
         UsersRecord.serializer,
@@ -78,5 +73,4 @@ Map<String, dynamic> createUsersRecordData({
           ..photoUrl = photoUrl
           ..uid = uid
           ..createdTime = createdTime
-          ..phoneNumber = phoneNumber
-          ..videoUrl = videoUrl));
+          ..phoneNumber = phoneNumber));

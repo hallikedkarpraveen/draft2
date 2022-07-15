@@ -36,58 +36,44 @@ class _Home2WidgetState extends State<Home2Widget> {
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Container(
-                width: double.infinity,
-                height: 300,
-                decoration: BoxDecoration(
-                  color: Color(0xFFEEEEEE),
-                ),
-                child: StreamBuilder<List<VideosRecord>>(
-                  stream: queryVideosRecord(),
-                  builder: (context, snapshot) {
-                    // Customize what your widget looks like when it's loading.
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: SizedBox(
-                          width: 50,
-                          height: 50,
-                          child: CircularProgressIndicator(
-                            color: FlutterFlowTheme.of(context).primaryColor,
-                          ),
-                        ),
-                      );
-                    }
-                    List<VideosRecord> listViewVideosRecordList =
-                        snapshot.data!;
-                    return ListView.builder(
-                      padding: EdgeInsets.zero,
-                      scrollDirection: Axis.vertical,
-                      itemCount: listViewVideosRecordList.length,
-                      itemBuilder: (context, listViewIndex) {
-                        final listViewVideosRecord =
-                            listViewVideosRecordList[listViewIndex];
-                        return FlutterFlowVideoPlayer(
-                          path: listViewVideosRecord!.videoUrl!,
-                          videoType: VideoType.network,
-                          width: double.infinity,
-                          height: 300,
-                          aspectRatio: 1.70,
-                          autoPlay: false,
-                          looping: true,
-                          showControls: true,
-                          allowFullScreen: true,
-                          allowPlaybackSpeedMenu: true,
-                          lazyLoad: true,
-                        );
-                      },
+          child: StreamBuilder<List<VideosRecord>>(
+            stream: queryVideosRecord(),
+            builder: (context, snapshot) {
+              // Customize what your widget looks like when it's loading.
+              if (!snapshot.hasData) {
+                return Center(
+                  child: SizedBox(
+                    width: 50,
+                    height: 50,
+                    child: CircularProgressIndicator(
+                      color: FlutterFlowTheme.of(context).primaryColor,
+                    ),
+                  ),
+                );
+              }
+              List<VideosRecord> columnVideosRecordList = snapshot.data!;
+              return SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: List.generate(columnVideosRecordList.length,
+                      (columnIndex) {
+                    final columnVideosRecord =
+                        columnVideosRecordList[columnIndex];
+                    return FlutterFlowVideoPlayer(
+                      path:
+                          'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4',
+                      videoType: VideoType.network,
+                      autoPlay: false,
+                      looping: true,
+                      showControls: true,
+                      allowFullScreen: true,
+                      allowPlaybackSpeedMenu: false,
                     );
-                  },
+                  }),
                 ),
-              ),
-            ],
+              );
+            },
           ),
         ),
       ),
